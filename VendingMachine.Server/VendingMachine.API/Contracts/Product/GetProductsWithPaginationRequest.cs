@@ -1,6 +1,6 @@
-﻿using VendingMachine.Application.Queries.GetProductsWithPagination;
+﻿using VendingMachine.Application.Queries.Product.GetProductsWithPagination;
 
-namespace VendingMachine.API.Contracts.Product.Requests;
+namespace VendingMachine.API.Contracts.Product;
 
 /// <summary>
 /// Запрос для получения списка товаров (напитков) с пагинацией и фильтрами

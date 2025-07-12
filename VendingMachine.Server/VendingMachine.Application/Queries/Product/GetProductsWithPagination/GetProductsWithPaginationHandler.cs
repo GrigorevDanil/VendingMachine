@@ -4,7 +4,7 @@ using VendingMachine.Application.Dtos;
 using VendingMachine.Application.Extensions;
 using VendingMachine.Application.Models;
 
-namespace VendingMachine.Application.Queries.GetProductsWithPagination;
+namespace VendingMachine.Application.Queries.Product.GetProductsWithPagination;
 
 public class GetProductsWithPaginationHandler : IQueryHandler<PagedList<ProductDto>,GetProductWithPaginationQuery>
 {

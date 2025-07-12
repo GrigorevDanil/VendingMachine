@@ -25,6 +25,12 @@ builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
+builder.Services.Configure<RouteOptions>(options =>
+{
+    options.LowercaseUrls = true;
+    options.LowercaseQueryStrings = true; 
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -33,13 +39,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Images");
+var imageFolder = Path.Combine(
+    Directory.GetParent(Directory.GetCurrentDirectory())!.FullName,
+    "Images"
+);
 
-if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+if (!Directory.Exists(imageFolder)) Directory.CreateDirectory(imageFolder);
 
 app.UseStaticFiles(new StaticFileOptions
 {
-    FileProvider = new PhysicalFileProvider(uploadsFolder),
+    FileProvider = new PhysicalFileProvider(imageFolder),
     RequestPath = "/images"
 });
 

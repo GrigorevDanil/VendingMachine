@@ -11,7 +11,7 @@ public static class Registration
 
         services.Scan(scan => scan.FromAssemblies(assembly)
             .AddClasses(classes => classes
-                .AssignableToAny(typeof(ICommandHandler<>), typeof(ICommandHandler<>)))
+                .AssignableToAny(typeof(ICommandHandler<>), typeof(ICommandHandler<,>)))
             .AsSelfWithInterfaces()
             .WithScopedLifetime());
 

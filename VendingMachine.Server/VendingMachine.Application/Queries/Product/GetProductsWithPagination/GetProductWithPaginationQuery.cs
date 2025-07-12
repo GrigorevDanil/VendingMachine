@@ -1,6 +1,6 @@
 ﻿using VendingMachine.Application.Abstractions;
 
-namespace VendingMachine.Application.Queries.GetProductsWithPagination;
+namespace VendingMachine.Application.Queries.Product.GetProductsWithPagination;
 
 public record GetProductWithPaginationQuery(
     Guid? BrandId,
