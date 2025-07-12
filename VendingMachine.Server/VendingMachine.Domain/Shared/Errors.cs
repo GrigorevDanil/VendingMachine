@@ -28,5 +28,19 @@ namespace VendingMachine.Domain.Shared
 
         }
         
+        public static class File
+        {
+            public static Error NotFound(string fileName)
+            {
+                return Error.NotFound("FILE_NOT_FOUND", $"File '{fileName}' not found");
+            }
+            
+            public static Error NotImage()
+            {
+                return Error.NotFound("FILE_NOT_IMAGE", $"File not image");
+            }
+
+        }
+        
     }
 }

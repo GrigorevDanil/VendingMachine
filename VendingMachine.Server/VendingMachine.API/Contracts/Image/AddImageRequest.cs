@@ -1,4 +1,5 @@
 ﻿using VendingMachine.Application.Commands.Image;
+using VendingMachine.Application.Commands.Image.AddImage;
 
 namespace VendingMachine.API.Contracts.Image;
 
@@ -6,7 +7,7 @@ namespace VendingMachine.API.Contracts.Image;
 /// Запрос для отправки изображения
 /// </summary>
 /// <param name="Image">Картинка</param>
-public record DownloadImageRequest(IFormFile Image)
+public record AddImageRequest(IFormFile Image)
 {
-    public DownloadImageCommand ToCommand() => new (Image);
+    public AddImageCommand ToCommand() => new (Image);
 }

@@ -1,17 +1,16 @@
-﻿using System.Reflection;
-using CSharpFunctionalExtensions;
+﻿using CSharpFunctionalExtensions;
 using VendingMachine.Application.Abstractions;
 using VendingMachine.Domain.Shared;
 
-namespace VendingMachine.Application.Commands.Image;
+namespace VendingMachine.Application.Commands.Image.AddImage;
 
-public class DownloadImageHandler :  ICommandHandler<string,DownloadImageCommand>
+public class AddImageHandler :  ICommandHandler<string,AddImageCommand>
 {
-    public async Task<Result<string, ErrorList>> Handle(DownloadImageCommand command, CancellationToken cancellationToken = default)
+    public async Task<Result<string, ErrorList>> Handle(AddImageCommand command, CancellationToken cancellationToken = default)
     {
         if (command.File.Length == 0) return Errors.General.ValueIsInvalid("File not provided").ToErrorList();
 
-        if (!command.File.ContentType.StartsWith("image/")) return Errors.General.ValueIsInvalid("File not image").ToErrorList();
+        if (!command.File.ContentType.StartsWith("image/")) return Errors.File.NotImage().ToErrorList();
         
         var imageFolder = Path.Combine(
             Directory.GetParent(Directory.GetCurrentDirectory())!.FullName,

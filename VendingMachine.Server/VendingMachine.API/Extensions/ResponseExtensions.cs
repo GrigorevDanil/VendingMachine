@@ -2,7 +2,7 @@
 using VendingMachine.Application.Models;
 using VendingMachine.Domain.Shared;
 
-namespace SachkovTech.Framework;
+namespace VendingMachine.API.Extensions;
 
 public static class ResponseExtensions
 {
