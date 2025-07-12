@@ -1,5 +1,4 @@
 ﻿using CSharpFunctionalExtensions;
-using VendingMachine.Domain.Shared;
 using VendingMachine.Domain.ValueObjects;
 using VendingMachine.Domain.ValueObjects.Ids;
 
@@ -9,10 +8,11 @@ namespace VendingMachine.Domain.Entities;
 public class Product : Entity<ProductId>
 {
     /// <summary> Конструктор для поддержки EF. Не использовать! </summary>
-    private Product(ProductId id) : base(id) { }
+    private Product() { }
 
-    public Product(Title title, Price price, Stock stock, BrandId brandId)
+    public Product(FilePath filePath, Title title, Price price, Stock stock, BrandId brandId)
     {
+        FilePath = filePath;
         Title = title;
         Price = price;
         Stock = stock;

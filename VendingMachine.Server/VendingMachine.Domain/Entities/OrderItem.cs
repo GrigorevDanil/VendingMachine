@@ -8,7 +8,7 @@ namespace VendingMachine.Domain.Entities;
 public class OrderItem : Entity<OrderItemId>
 {
     /// <summary> Конструктор для поддержки EF. Не использовать! </summary>
-    private OrderItem(OrderItemId id) : base(id) { }
+    private OrderItem() { }
 
     public OrderItem(Title brandTitle, Title productTitle, Price productPrice, Quantity quantity, OrderId orderId, ProductId productId)
     {

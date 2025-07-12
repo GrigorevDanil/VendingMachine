@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using VendingMachine.Application.Abstractions;
 using VendingMachine.Infrastructure.DbContexts;
 
 namespace VendingMachine.Infrastructure;
@@ -16,7 +17,7 @@ public static class Registration
 
     private static IServiceCollection AddDbContext(this IServiceCollection services)
     {
-        services.AddScoped<WriteDbContext>();
+        services.AddScoped<IReadDbContext, ReadDbContext>();
         
         return services;
     }

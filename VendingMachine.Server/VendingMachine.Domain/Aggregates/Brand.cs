@@ -13,7 +13,7 @@ public class Brand : Entity<BrandId>
     private List<Product> _products = [];
     
     /// <summary> Конструктор для поддержки EF. Не использовать! </summary>
-    private Brand(BrandId id) : base(id) { }
+    private Brand() { }
     
     public Brand(Title title, IEnumerable<Product> products)
     {

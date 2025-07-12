@@ -11,7 +11,7 @@ public class Price : ValueObject
     {
         Value = value;
     }
-    public decimal Value { get; }
+    public decimal Value { get;}
 
     public static Result<Price, Error> Of(decimal value)
     {

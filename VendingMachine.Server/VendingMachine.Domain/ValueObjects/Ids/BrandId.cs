@@ -9,7 +9,7 @@ public class BrandId: ValueObject, IComparable<BrandId>
         Value = value;
     }
 
-    public Guid Value { get; }
+    public Guid Value { get;}
         
     public static BrandId Create() => new(Guid.NewGuid());
         

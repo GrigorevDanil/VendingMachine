@@ -9,7 +9,7 @@ namespace VendingMachine.Domain.Entities;
 public class Coin : Entity<CoinId>
 {
     /// <summary> Конструктор для поддержки EF. Не использовать! </summary>
-    private Coin(CoinId id) : base(id) { }
+    private Coin() { }
 
     public Coin(Denomination denomination, Stock stock)
     {

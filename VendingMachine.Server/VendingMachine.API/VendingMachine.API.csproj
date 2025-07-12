@@ -16,4 +16,8 @@
 <ProjectReference Include="..\VendingMachine.Infrastructure\VendingMachine.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Contracts\Product\Requests\" />
+    </ItemGroup>
+
 </Project>

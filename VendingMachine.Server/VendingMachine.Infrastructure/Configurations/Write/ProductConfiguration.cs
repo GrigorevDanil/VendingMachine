@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using VendingMachine.Domain.Aggregates;
 using VendingMachine.Domain.Entities;
 using VendingMachine.Domain.ValueObjects;
 using VendingMachine.Domain.ValueObjects.Ids;
@@ -38,6 +37,7 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             {
                 p.Property(x => x.Value)
                     .HasColumnName(nameof(Product.Price))
+                    .HasColumnType(Price.TYPE_NAME)
                     .IsRequired();
             });
         

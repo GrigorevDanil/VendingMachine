@@ -9,7 +9,7 @@ public class OrderItemId: ValueObject, IComparable<OrderItemId>
         Value = value;
     }
 
-    public Guid Value { get; }
+    public Guid Value { get;  }
         
     public static OrderItemId Create() => new(Guid.NewGuid());
         

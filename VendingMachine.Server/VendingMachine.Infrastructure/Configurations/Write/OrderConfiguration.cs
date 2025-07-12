@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using VendingMachine.Domain.Aggregates;
+using VendingMachine.Domain.ValueObjects;
 using VendingMachine.Domain.ValueObjects.Ids;
 
 namespace VendingMachine.Infrastructure.Configurations.Write;
@@ -27,6 +28,7 @@ public class OrderConfiguration: IEntityTypeConfiguration<Order>
             {
                 p.Property(x => x.Value)
                     .HasColumnName(nameof(Order.TotalAmount))
+                    .HasColumnType(TotalAmount.TYPE_NAME)
                     .IsRequired();
             });
         

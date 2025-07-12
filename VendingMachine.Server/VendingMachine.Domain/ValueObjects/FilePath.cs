@@ -9,7 +9,7 @@ public class FilePath: ValueObject
     {
         Value = value;
     }
-    public string Value { get; }
+    public string Value { get;}
 
     public static Result<FilePath, Error> Of(string value)
     {
