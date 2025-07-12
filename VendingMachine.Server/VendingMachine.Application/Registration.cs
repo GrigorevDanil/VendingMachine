@@ -17,7 +17,7 @@ public static class Registration
 
         services.Scan(scan => scan.FromAssemblies(assembly)
             .AddClasses(classes => classes
-                .AssignableTo(typeof(IQueryHandler<>)))
+                .AssignableToAny(typeof(IQueryHandler<>),typeof(IQueryHandler<,>)))
             .AsSelfWithInterfaces()
             .WithScopedLifetime());
 

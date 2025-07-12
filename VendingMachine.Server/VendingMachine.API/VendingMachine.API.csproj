@@ -5,6 +5,9 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <InvariantGlobalization>true</InvariantGlobalization>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+    	<NoWarn>$(NoWarn);1591</NoWarn>
+		<NoWarn>$(NoWarn);1573</NoWarn> 		
     </PropertyGroup>
 
     <ItemGroup>
@@ -14,10 +17,6 @@
         </PackageReference>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
 <ProjectReference Include="..\VendingMachine.Infrastructure\VendingMachine.Infrastructure.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Contracts\Product\Requests\" />
     </ItemGroup>
 
 </Project>
