@@ -19,5 +19,14 @@ namespace VendingMachine.Domain.Shared
 
         }
         
+        public static class Server
+        {
+            public static Error InternalServer(string message)
+            {
+                return Error.Validation("INTERNAL_SERVER_ERROR", message);
+            }
+
+        }
+        
     }
 }

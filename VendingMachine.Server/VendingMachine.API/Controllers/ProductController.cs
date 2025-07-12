@@ -19,7 +19,6 @@ public class ProductController : ApplicationController
     /// </summary>
     /// <response code="200"></response>
     [HttpGet]
-    [ProducesResponseType(typeof(PagedList<ProductDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult> Get(
         [FromQuery] GetProductsWithPaginationRequest request,
         [FromServices] GetProductsWithPaginationHandler withPaginationHandler,

@@ -1,10 +1,18 @@
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.FileProviders;
+using VendingMachine.API.Middlewares;
 using VendingMachine.Application;
+using VendingMachine.Application.Models;
 using VendingMachine.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add(new ProducesResponseTypeAttribute(typeof(Envelope), StatusCodes.Status200OK));
+});
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -25,7 +33,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "Images");
+
+if (!Directory.Exists(uploadsFolder)) Directory.CreateDirectory(uploadsFolder);
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(uploadsFolder),
+    RequestPath = "/images"
+});
+
 app.UseHttpsRedirection();
+
+app.UseExceptionMiddleware();
 
 app.MapControllers();
 
