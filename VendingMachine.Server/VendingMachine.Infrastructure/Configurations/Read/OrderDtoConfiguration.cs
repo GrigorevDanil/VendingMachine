@@ -8,6 +8,8 @@ public class OrderDtoConfiguration: IEntityTypeConfiguration<OrderDto>
 {
     public void Configure(EntityTypeBuilder<OrderDto> builder)
     {
+        builder.ToTable("Orders");
+        
         builder.HasKey(x => x.Id);
         
         builder.HasMany(x => x.Items).WithOne().HasForeignKey(x => x.OrderId);

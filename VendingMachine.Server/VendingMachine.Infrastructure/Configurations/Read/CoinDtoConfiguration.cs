@@ -8,6 +8,8 @@ public class CoinDtoConfiguration : IEntityTypeConfiguration<CoinDto>
 {
     public void Configure(EntityTypeBuilder<CoinDto> builder)
     {
+        builder.ToTable("Coins");
+        
         builder.HasKey(x => x.Id);
     }
 }
