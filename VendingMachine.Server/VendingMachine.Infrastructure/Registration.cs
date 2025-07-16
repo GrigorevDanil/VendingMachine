@@ -49,6 +49,7 @@ public static class Registration
 
     private static IServiceCollection AddServices(this IServiceCollection services)
     {
+        services.AddSingleton<IBusyStateService, BusyStateService>();
         services.AddScoped<IImageService, ImageService>();
         services.AddScoped<IExcelProductImportService, ExcelProductImportService>();
         
