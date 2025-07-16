@@ -13,10 +13,12 @@ import { FileUpload } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { v4 as randomUUID } from "uuid";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useImportProductFromExcelMutation } from "@/entities/product/api/productApi";
 
 export const HomePage = () => {
   const router = useRouter();
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [idSession] = useState<string>(randomUUID());
 
@@ -25,6 +27,8 @@ export const HomePage = () => {
   const [releaseSession] = useReleaseSessionMutation({});
 
   const { data: isBusy } = useGetBusyQuery(idSession);
+
+  const [importProductsFromExcel] = useImportProductFromExcelMutation({});
 
   useEffect(() => {
     if (isBusy === "Close") {
@@ -45,16 +49,49 @@ export const HomePage = () => {
     };
   }, [idSession, isBusy, occupySession, releaseSession, router]);
 
+  const handleImportClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      const selectedFile = files[0];
+
+      const fileName = selectedFile.name.toLowerCase();
+      if (!fileName.endsWith(".xlsx") && !fileName.endsWith(".xls")) {
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append("file", selectedFile);
+
+      await importProductsFromExcel(formData).unwrap();
+    }
+  };
+
   return (
     <div className="flex flex-col gap-2 h-full">
       <Header>
-        <Button
-          className="w-full text-white bg-gray-600 sm:ml-auto sm:w-[200px]"
-          size="large"
-          startIcon={<FileUpload />}
-        >
-          Импорт
-        </Button>
+        <div className="ml-auto ">
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            accept=".xlsx,.xls"
+            style={{ display: "none" }}
+          />
+          <Button
+            className="w-full text-white bg-gray-600 sm:ml-auto sm:w-[200px]"
+            size="large"
+            startIcon={<FileUpload />}
+            onClick={handleImportClick}
+          >
+            Импорт
+          </Button>
+        </div>
       </Header>
       <ProductFilter />
       <ProductList />

@@ -25,8 +25,18 @@ const productApi = baseApi.injectEndpoints({
         ),
       transformErrorResponse: (response) => handleError(response),
     }),
+    importProductFromExcel: create.mutation<void, FormData>({
+      query: (formData) => ({
+        url: "api/product/import",
+        method: "POST",
+        body: formData,
+      }),
+    }),
   }),
   overrideExisting: true,
 });
 
-export const { useGetProductsWithPaginationQuery } = productApi;
+export const {
+  useGetProductsWithPaginationQuery,
+  useImportProductFromExcelMutation,
+} = productApi;
