@@ -13,7 +13,7 @@ public class Stock : ValueObject
 
     public static Result<Stock, Error> Of(int value)
     {
-        if (value <= 0) 
+        if (value < 0) 
             return Errors.General.ValueIsInvalid(nameof(Stock));
 
         return new Stock(value);

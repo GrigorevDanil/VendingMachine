@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using VendingMachine.API.Contracts.Product;
 using VendingMachine.API.Controllers.Base;
+using VendingMachine.API.Extensions;
+using VendingMachine.Application.Commands.ProductCommands.ImportProductsFromExcel;
 using VendingMachine.Application.Queries.Product.GetProductsWithPagination;
 
 namespace VendingMachine.API.Controllers;
@@ -25,5 +27,24 @@ public class ProductController : ApplicationController
         var response = await handler.Handle(query, cancellationToken);
      
         return Ok(response);
+    }
+    
+    /// <summary>
+    /// Импорт товаров из Excel файла (BrandId, Title, Price, Stock, FilePath - необходимые столбцы)
+    /// </summary>
+    /// <response code="200"></response>
+    [HttpPost("import")]
+    public async Task<ActionResult> Post( [FromForm] ImportProductsFromExcelRequest request,
+        [FromServices] ImportProductsFromExcelHandler handler,
+        CancellationToken cancellationToken)
+    {
+        var command = request.ToCommand();
+        
+        var result = await handler.Handle(command,cancellationToken);
+        
+        if (result.IsFailure)
+            return result.Error.ToResponse();
+
+        return Ok(result.Value);
     }
 }

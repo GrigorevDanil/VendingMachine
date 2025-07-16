@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="ClosedXML" Version="0.105.0" />
       <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="9.0.7" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
     </ItemGroup>
@@ -14,10 +15,6 @@
     <ItemGroup>
       <ProjectReference Include="..\VendingMachine.Application\VendingMachine.Application.csproj" />
       <ProjectReference Include="..\VendingMachine.Domain\VendingMachine.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Repositories\" />
     </ItemGroup>
 
 </Project>

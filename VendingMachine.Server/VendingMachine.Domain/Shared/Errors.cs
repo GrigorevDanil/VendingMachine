@@ -30,9 +30,19 @@ namespace VendingMachine.Domain.Shared
         
         public static class File
         {
+            public static Error FileIsInvalid(string message)
+            {
+                return Error.Validation("FILE_IS_INVALID", message);
+            }
+            
             public static Error NotFound(string fileName)
             {
                 return Error.NotFound("FILE_NOT_FOUND", $"File '{fileName}' not found");
+            }
+            
+            public static Error NotProvide()
+            {
+                return Error.NotFound("FILE_NOT_PROVIDE", "File not provide");
             }
             
             public static Error NotImage()
@@ -40,6 +50,10 @@ namespace VendingMachine.Domain.Shared
                 return Error.NotFound("FILE_NOT_IMAGE", $"File not image");
             }
 
+            public static Error NotExcel()
+            {
+                return Error.NotFound("FILE_NOT_EXCEL", $"File not excel file");
+            }
         }
         
     }

@@ -8,9 +8,9 @@ namespace VendingMachine.Domain.Entities;
 public class Product : Entity<ProductId>
 {
     /// <summary> Конструктор для поддержки EF. Не использовать! </summary>
-    private Product() { }
+    private Product(ProductId id) : base(id) { }
 
-    public Product(FilePath filePath, Title title, Price price, Stock stock, BrandId brandId)
+    public Product(ProductId id, FilePath filePath, Title title, Price price, Stock stock, BrandId brandId) : base(id)
     {
         FilePath = filePath;
         Title = title;

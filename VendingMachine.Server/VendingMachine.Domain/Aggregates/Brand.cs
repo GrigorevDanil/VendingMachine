@@ -13,9 +13,9 @@ public class Brand : Entity<BrandId>
     private List<Product> _products = [];
     
     /// <summary> Конструктор для поддержки EF. Не использовать! </summary>
-    private Brand() { }
+    private Brand(BrandId id):base(id) { }
     
-    public Brand(Title title, IEnumerable<Product> products)
+    public Brand(BrandId id, Title title, IEnumerable<Product> products) : base(id)
     {
         Title = title;
         _products = products.ToList();

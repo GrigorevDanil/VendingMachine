@@ -1,5 +1,4 @@
-﻿using VendingMachine.Application.Commands.Image;
-using VendingMachine.Application.Commands.Image.AddImage;
+﻿using VendingMachine.Application.Commands.ImageCommands.AddImage;
 
 namespace VendingMachine.API.Contracts.Image;
 

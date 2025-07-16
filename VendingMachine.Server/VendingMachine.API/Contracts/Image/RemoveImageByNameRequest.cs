@@ -1,4 +1,4 @@
-﻿using VendingMachine.Application.Commands.Image.RemoveImageByName;
+﻿using VendingMachine.Application.Commands.ImageCommands.RemoveImageByName;
 
 namespace VendingMachine.API.Contracts.Image;
 

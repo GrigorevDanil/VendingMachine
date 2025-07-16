@@ -8,9 +8,9 @@ namespace VendingMachine.Domain.Entities;
 public class OrderItem : Entity<OrderItemId>
 {
     /// <summary> Конструктор для поддержки EF. Не использовать! </summary>
-    private OrderItem() { }
+    private OrderItem(OrderItemId id):base(id) { }
 
-    public OrderItem(Title brandTitle, Title productTitle, Price productPrice, Quantity quantity, OrderId orderId, ProductId productId)
+    public OrderItem(OrderItemId id, Title brandTitle, Title productTitle, Price productPrice, Quantity quantity, OrderId orderId, ProductId productId) : base(id)
     {
         BrandTitle = brandTitle;
         ProductTitle = productTitle;

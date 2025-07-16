@@ -13,9 +13,9 @@ public class Order : Entity<OrderId>
     private List<OrderItem> _items = [];
     
     /// <summary> Конструктор для поддержки EF. Не использовать! </summary>
-    private Order() { }
+    private Order(OrderId id):base(id) { }
 
-    public Order(OrderDate createdAt, TotalAmount totalAmount, IEnumerable<OrderItem> items)
+    public Order(OrderId id, OrderDate createdAt, TotalAmount totalAmount, IEnumerable<OrderItem> items) : base(id)
     {
         CreatedAt = createdAt;
         TotalAmount = totalAmount;
