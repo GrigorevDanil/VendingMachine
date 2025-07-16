@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 using VendingMachine.Application.Abstractions;
 using VendingMachine.Application.Dtos;
 using VendingMachine.Application.Extensions;
@@ -36,13 +37,24 @@ public class GetProductsWithPaginationHandler : IQueryHandler<PagedList<ProductD
 
         productsQuery = productsQuery.WhereIf(
             !string.IsNullOrWhiteSpace(query.Title),
-            p => p.Title.Contains(query.Title!));
+            p => p.Title.ToLower().Contains(query.Title!.ToLower()));
         
         productsQuery = productsQuery.WhereIf(
             query.MinPrice.HasValue,
             p => p.Price >= query.MinPrice!);
+        
+        var maxPrice = await productsQuery
+            .Select(p => p.Price)
+            .DefaultIfEmpty() 
+            .MaxAsync(cancellationToken);
+
+
+        var pagedListOptions = new Dictionary<string, object>
+        {
+            { "maxPrice", maxPrice },
+        };
 
         return await productsQuery
-            .ToPagedList(query.Page, query.PageSize, cancellationToken);
+            .ToPagedList(query.Page, query.PageSize, pagedListOptions, cancellationToken);
     }
 }

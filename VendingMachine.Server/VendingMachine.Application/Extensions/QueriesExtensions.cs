@@ -10,6 +10,7 @@ public static class QueriesExtensions
         this IQueryable<T> source,
         int page,
         int pageSize,
+        Dictionary<string, object>? options,
         CancellationToken cancellationToken = default)
     {
         var totalCount = await source.CountAsync(cancellationToken);
@@ -24,7 +25,8 @@ public static class QueriesExtensions
             Items = items,
             PageSize = pageSize,
             Page = page,
-            TotalCount = totalCount
+            TotalCount = totalCount,
+            Options = options
         };
     }
     
