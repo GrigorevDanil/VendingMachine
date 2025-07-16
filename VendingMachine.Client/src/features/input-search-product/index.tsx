@@ -3,14 +3,30 @@ import { useAppDispatch, useAppSelector } from "@/shared/model/redux";
 import { WhiteTextField } from "@/shared/ui/white-text-field";
 import { Search } from "@mui/icons-material";
 import clsx from "clsx";
+import { useEffect, useState } from "react";
 
-export const InputSearchProduct = ({ className }: { className?: string }) => {
+export const InputSearchProduct = ({
+  className,
+  duration = 300,
+}: {
+  className?: string;
+  duration?: number;
+}) => {
   const dispatch = useAppDispatch();
-
   const typedTitle = useAppSelector(productListSlice.selectors.typedTitle);
+  const [inputValue, setInputValue] = useState(typedTitle);
 
-  const handleTextChange = (value: string) =>
-    dispatch(productListSlice.actions.setTypedTitle(value));
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(productListSlice.actions.setTypedTitle(inputValue));
+    }, duration);
+
+    return () => clearTimeout(timer);
+  }, [inputValue, duration, dispatch]);
+
+  const handleTextChange = (value: string) => {
+    setInputValue(value);
+  };
 
   return (
     <WhiteTextField
@@ -21,7 +37,7 @@ export const InputSearchProduct = ({ className }: { className?: string }) => {
           <Search /> Найти напиток по названию
         </div>
       }
-      value={typedTitle}
+      value={inputValue}
       onChange={(e) => handleTextChange(e.target.value)}
     />
   );
