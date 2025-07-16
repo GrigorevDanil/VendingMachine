@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit/react";
 import { BrandId } from "@/entities/brand/types";
-import { ProductId } from "../../types";
+import { ProductId } from "../types";
 
 export type SortByProduct = "title" | "price" | "";
 

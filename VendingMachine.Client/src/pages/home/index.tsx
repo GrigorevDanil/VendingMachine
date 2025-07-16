@@ -1,13 +1,50 @@
 "use client";
 
 import { ProductList } from "@/entities/product/ui/product-list";
+import {
+  useGetBusyQuery,
+  useOccupySessionMutation,
+  useReleaseSessionMutation,
+} from "@/entities/session/api/sessionApi";
 import { ProductFilter } from "@/features/product-filter";
 import { ProductPagination } from "@/features/product-pagination";
 import { Header } from "@/widgets/header";
 import { FileUpload } from "@mui/icons-material";
 import { Button } from "@mui/material";
+import { v4 as randomUUID } from "uuid";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export const HomePage = () => {
+  const router = useRouter();
+
+  const [idSession] = useState<string>(randomUUID());
+
+  const [occupySession] = useOccupySessionMutation({});
+
+  const [releaseSession] = useReleaseSessionMutation({});
+
+  const { data: isBusy } = useGetBusyQuery(idSession);
+
+  useEffect(() => {
+    if (isBusy === "Close") {
+      router.push("/isBusy");
+    } else if (isBusy === "Open") {
+      occupySession(idSession);
+    }
+
+    const handleBeforeUnload = () => {
+      releaseSession({});
+    };
+
+    window.addEventListener("beforeunload", handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+      releaseSession({});
+    };
+  }, [idSession, isBusy, occupySession, releaseSession, router]);
+
   return (
     <div className="flex flex-col gap-2 h-full">
       <Header>

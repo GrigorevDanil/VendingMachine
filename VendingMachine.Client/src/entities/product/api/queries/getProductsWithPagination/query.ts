@@ -1,4 +1,4 @@
-import { SortByProduct } from "../../slices/product-list.slice";
+import { SortByProduct } from "@/entities/product/slices/product-list.slice";
 
 export type GetProductsWithPaginationQueryParams = {
   Page: number;

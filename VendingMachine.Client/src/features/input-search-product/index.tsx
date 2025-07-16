@@ -30,7 +30,7 @@ export const InputSearchProduct = ({
 
   return (
     <WhiteTextField
-      className={clsx(className)}
+      className={clsx("w-full", className)}
       id="input-search-product"
       label={
         <div className="flex items-center gap-2">

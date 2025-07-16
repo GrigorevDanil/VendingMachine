@@ -5,8 +5,8 @@ import { useGetProductsWithPaginationQuery } from "../api/productApi";
 import { ProductCard } from "./product-card";
 import { Panel } from "@/shared/ui/panel";
 import { useEffect } from "react";
-import { productListSlice } from "../api";
 import { useAppDispatch, useAppSelector } from "@/shared/model/redux";
+import { productListSlice } from "../slices/product-list.slice";
 
 export const ProductList = () => {
   const dispatch = useAppDispatch();
