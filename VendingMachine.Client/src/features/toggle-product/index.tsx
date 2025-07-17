@@ -2,19 +2,19 @@
 
 import { Button } from "@mui/material";
 import clsx from "clsx";
-import { productListSlice } from "@/entities/product";
 import { useAppDispatch, useAppSelector } from "@/shared/model/redux";
 import { Product, ProductStatus } from "@/entities/product/types";
+import { orderListSlice } from "@/entities/order/slices/order-list.slice";
 
 export const ToggleProduct = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch();
-  const isSelected = useAppSelector((state) =>
-    productListSlice.selectors.isProductSelected(state, product.id)
+  const isInOrder = useAppSelector((state) =>
+    orderListSlice.selectors.isProductInOrder(state, product.id)
   );
 
   const getProductStatus = (): ProductStatus => {
     if (product.stock === 0) return "sold_out";
-    return isSelected ? "selected" : "available";
+    return isInOrder ? "selected" : "available";
   };
 
   const productStatus = getProductStatus();
@@ -24,25 +24,25 @@ export const ToggleProduct = ({ product }: { product: Product }) => {
       case "sold_out":
         return {
           text: "Закончился",
-          className: "bg-gray-500 cursor-not-allowed",
+          className: "bg-gray-500 hover:bg-gray-600 cursor-not-allowed",
           disabled: true,
         };
       case "selected":
         return {
-          text: "Выбрано",
-          className: "bg-green-500",
+          text: "Выбран",
+          className: "bg-green-500 hover:bg-green-600",
           disabled: false,
         };
       case "available":
         return {
           text: "Выбрать",
-          className: "bg-orange-800",
+          className: "bg-orange-700 hover:bg-orange-800",
           disabled: false,
         };
       default:
         return {
           text: "Выбрать",
-          className: "bg-orange-800",
+          className: "bg-orange-700 hover:bg-orange-800",
           disabled: false,
         };
     }
@@ -51,8 +51,14 @@ export const ToggleProduct = ({ product }: { product: Product }) => {
   const buttonConfig = getButtonConfig();
 
   const handleToggleSelection = () => {
-    if (productStatus === "available" || productStatus === "selected") {
-      dispatch(productListSlice.actions.toggleProductSelection(product.id));
+    if (productStatus === "available") {
+      dispatch(
+        orderListSlice.actions.addProductInOrder({
+          product,
+        })
+      );
+    } else if (productStatus === "selected") {
+      dispatch(orderListSlice.actions.removeProductFromOrder(product.id));
     }
   };
 

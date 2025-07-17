@@ -15,6 +15,7 @@ import { v4 as randomUUID } from "uuid";
 import { useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
 import { useImportProductFromExcelMutation } from "@/entities/product/api/productApi";
+import { enqueueSnackbar } from "notistack";
 
 export const HomePage = () => {
   const router = useRouter();
@@ -69,6 +70,8 @@ export const HomePage = () => {
       formData.append("file", selectedFile);
 
       await importProductsFromExcel(formData).unwrap();
+
+      enqueueSnackbar("Успешный импорт", { variant: "success" });
     }
   };
 
@@ -84,7 +87,7 @@ export const HomePage = () => {
             style={{ display: "none" }}
           />
           <Button
-            className="w-full text-white bg-gray-600 sm:ml-auto sm:w-[200px]"
+            className="w-full text-white bg-gray-500 hover:bg-gray-600 sm:ml-auto sm:w-[200px]"
             size="large"
             startIcon={<FileUpload />}
             onClick={handleImportClick}

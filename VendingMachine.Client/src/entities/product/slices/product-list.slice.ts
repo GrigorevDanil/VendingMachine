@@ -1,6 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit/react";
 import { BrandId } from "@/entities/brand/types";
-import { ProductId } from "../types";
 
 export type SortByProduct = "title" | "price" | "";
 
@@ -15,7 +14,6 @@ export type State = {
   sortBy: SortByProduct;
   sortDirection: SortDirection;
   typedTitle: string;
-  selectedProductIds: ProductId[];
 };
 
 const initialState: State = {
@@ -27,7 +25,6 @@ const initialState: State = {
   sortBy: "",
   sortDirection: "asc",
   typedTitle: "",
-  selectedProductIds: [],
 };
 
 export const productListSlice = createSlice({
@@ -42,10 +39,6 @@ export const productListSlice = createSlice({
     sortBy: (state: State) => state.sortBy,
     sortDirection: (state: State) => state.sortDirection,
     typedTitle: (state: State) => state.typedTitle,
-    selectedProductIds: (state) => state.selectedProductIds,
-    isProductSelected: (state, productId: ProductId) =>
-      state.selectedProductIds.includes(productId),
-    selectProductsCount: (state) => state.selectedProductIds.length,
   },
   reducers: {
     setCurrentPage: (state, action: PayloadAction<number>) => {
@@ -71,16 +64,6 @@ export const productListSlice = createSlice({
     },
     setTypedTitle: (state, action: PayloadAction<string>) => {
       state.typedTitle = action.payload;
-    },
-    toggleProductSelection: (state, action: PayloadAction<ProductId>) => {
-      const productId = action.payload;
-      const index = state.selectedProductIds.indexOf(productId);
-
-      if (index === -1) {
-        state.selectedProductIds.push(productId);
-      } else {
-        state.selectedProductIds.splice(index, 1);
-      }
     },
   },
 });
