@@ -38,7 +38,7 @@ public class Order : Entity<OrderId>
     /// <returns></returns>
     public UnitResult<Error> AddItem(OrderItem item)
     {
-        var result = TotalAmount.Add(item.ProductPrice.Value);
+        var result = TotalAmount.Add(item.ProductPrice.Value * item.Quantity.Value);
 
         if (result.IsFailure)
             return result.Error;
@@ -51,22 +51,68 @@ public class Order : Entity<OrderId>
     }
     
     /// <summary>
-    /// Удаление элемента заказа из списка заказа
+    /// Получить товар из заказа по id
     /// </summary>
-    /// <param name="item">Удаляемый элемент заказа</param>
+    /// <param name="orderItemId">Идентификатор товара из заказа</param>
     /// <returns></returns>
-    public UnitResult<Error> RemoveItem(OrderItem item)
+    public Result<OrderItem, Error> GetOrderItemById(OrderItemId orderItemId)
     {
-        var result = TotalAmount.Substract(item.ProductPrice.Value);
+        var orderItem = _items.FirstOrDefault(i => i.Id == orderItemId);
+        if (orderItem is null)
+            return Errors.General.NotFound(orderItemId.Value);
 
-        if (result.IsFailure)
-            return result.Error;
-        
-        TotalAmount = result.Value;
-        
-        _items.Remove(item);
-
-        return Result.Success<Error>();
+        return orderItem;
     }
     
+    /// <summary>
+    /// Удаляет товар из заказа по id
+    /// </summary>
+    /// <param name="orderItemId">Идентификатор товара из заказа</param>
+    /// <returns></returns>
+    public UnitResult<Error> DeleteOrderItemById(OrderItemId orderItemId)
+    {
+        var orderItem = _items.FirstOrDefault(i => i.Id == orderItemId);
+        if (orderItem is null)
+            return Errors.General.NotFound(orderItemId.Value);
+
+        var substractResult = TotalAmount.Subtract(orderItem.ProductPrice.Value * orderItem.Quantity.Value);
+
+        if (substractResult.IsFailure)
+            return substractResult.Error;
+        
+        TotalAmount = substractResult.Value;
+        
+        _items.Remove(orderItem);
+        
+        return Result.Success<Error>();
+    }
+
+    /// <summary>
+    /// Обновить количество товар в заказе по id
+    /// </summary>
+    /// <param name="orderItemId">Идентификатор товара из заказа</param>
+    /// <param name="quantity">Количество товара</param>
+    /// <returns></returns>
+    public UnitResult<Error> UpdateQuantityByOrderItemId(OrderItemId orderItemId, Quantity quantity)
+    {
+        var orderItem = _items.FirstOrDefault(i => i.Id == orderItemId);
+        if (orderItem is null)
+            return Errors.General.NotFound(orderItemId.Value);
+        
+        var subtractResult = TotalAmount.Subtract(orderItem.ProductPrice.Value * orderItem.Quantity.Value);
+        if (subtractResult.IsFailure)
+            return subtractResult.Error;
+        
+        TotalAmount = subtractResult.Value;
+
+        orderItem.UpdateQuantity(quantity);
+        
+        var addResult = TotalAmount.Add(orderItem.ProductPrice.Value * orderItem.Quantity.Value);
+        if (addResult.IsFailure)
+            return addResult.Error;
+
+        TotalAmount = addResult.Value;
+        
+        return Result.Success<Error>();
+    }
 }

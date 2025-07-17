@@ -2,7 +2,7 @@
 using VendingMachine.API.Contracts.Product;
 using VendingMachine.API.Controllers.Base;
 using VendingMachine.API.Extensions;
-using VendingMachine.Application.Commands.ProductCommands.ImportProductsFromExcel;
+using VendingMachine.Application.Commands.Product.ImportProductsFromExcel;
 using VendingMachine.Application.Queries.Product.GetProductsWithPagination;
 
 namespace VendingMachine.API.Controllers;

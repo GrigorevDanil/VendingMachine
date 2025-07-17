@@ -2,8 +2,8 @@
 using VendingMachine.API.Contracts.Image;
 using VendingMachine.API.Controllers.Base;
 using VendingMachine.API.Extensions;
-using VendingMachine.Application.Commands.ImageCommands.AddImage;
-using VendingMachine.Application.Commands.ImageCommands.RemoveImageByName;
+using VendingMachine.Application.Commands.Image.AddImage;
+using VendingMachine.Application.Commands.Image.RemoveImageByName;
 
 namespace VendingMachine.API.Controllers;
 

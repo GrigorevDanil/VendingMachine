@@ -23,13 +23,13 @@ public class ProductRepository : IRepository<Product, ProductId>
         return entity.Id;
     }
 
-    public ProductId Save(Product entity, CancellationToken cancellationToken = default)
+    public ProductId Save(Product entity)
     {
         _dbContext.Products.Attach(entity);
         return entity.Id;
     }
 
-    public ProductId Delete(Product entity, CancellationToken cancellationToken = default)
+    public ProductId Delete(Product entity)
     {
         _dbContext.Products.Remove(entity);
         return entity.Id;
@@ -37,7 +37,7 @@ public class ProductRepository : IRepository<Product, ProductId>
 
     public async Task<Result<Product, Error>> GetByIdAsync(ProductId entityId, CancellationToken cancellationToken = default)
     {
-        var product = await _dbContext.Products.FirstOrDefaultAsync(x => x.Id == entityId, cancellationToken);
+        var product = await _dbContext.Products.Include(x => x.Brand).FirstOrDefaultAsync(x => x.Id == entityId, cancellationToken);
 
         if (product is null) 
             return Errors.General.NotFound(entityId.Value);

@@ -1,4 +1,4 @@
-﻿using VendingMachine.Application.Commands.SessionCommands.OccupySession;
+﻿using VendingMachine.Application.Commands.Session.OccupySession;
 
 namespace VendingMachine.API.Contracts.Session;
 

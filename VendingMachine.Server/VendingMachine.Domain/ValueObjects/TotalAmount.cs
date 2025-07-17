@@ -15,7 +15,7 @@ public class TotalAmount : ValueObject
 
     public static Result<TotalAmount, Error> Of(decimal value)
     {
-        if (value <= 0) 
+        if (value < 0) 
             return Errors.General.ValueIsInvalid(nameof(TotalAmount));
 
         return new TotalAmount(value);
@@ -29,12 +29,12 @@ public class TotalAmount : ValueObject
         return new TotalAmount(Value + addedValue);
     }
     
-    public Result<TotalAmount, Error> Substract(decimal substractedValue)
+    public Result<TotalAmount, Error> Subtract(decimal subtractedValue)
     {
-        if (substractedValue <= 0) 
+        if (subtractedValue <= 0) 
             return Errors.General.ValueIsInvalid(nameof(TotalAmount));
         
-        return new TotalAmount(Value - substractedValue);
+        return new TotalAmount(Value - subtractedValue);
     }
     
     protected override IEnumerable<object> GetEqualityComponents()

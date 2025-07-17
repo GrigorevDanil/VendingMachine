@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VendingMachine.Application.Abstractions;
+using VendingMachine.Application.Abstractions.Messages;
 using VendingMachine.Application.Dtos;
 
 namespace VendingMachine.Application.Queries.Brand.GetBrands;

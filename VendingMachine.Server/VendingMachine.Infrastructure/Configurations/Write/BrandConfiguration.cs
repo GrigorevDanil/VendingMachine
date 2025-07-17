@@ -24,6 +24,6 @@ public class BrandConfiguration : IEntityTypeConfiguration<Brand>
                     .IsRequired();
             });
 
-        builder.HasMany(x => x.Products).WithOne().HasForeignKey(x => x.BrandId);
+        builder.HasMany(x => x.Products).WithOne(x => x.Brand).HasForeignKey(x => x.BrandId);
     }
 }

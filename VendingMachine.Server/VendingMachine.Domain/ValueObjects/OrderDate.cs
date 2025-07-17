@@ -11,12 +11,9 @@ public class OrderDate : ValueObject
     }
     public DateTime Value { get; }
 
-    public static Result<OrderDate, Error> Of(DateTime value)
+    public static Result<OrderDate, Error> Create()
     {
-        if (value != DateTime.UtcNow) 
-            return Errors.General.ValueIsInvalid(nameof(OrderDate));
-        
-        return new OrderDate(value);
+        return new OrderDate(DateTime.UtcNow);
     }
     
     protected override IEnumerable<object> GetEqualityComponents()

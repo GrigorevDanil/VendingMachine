@@ -1,8 +1,9 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VendingMachine.Application.Abstractions;
+using VendingMachine.Application.Abstractions.Services;
+using VendingMachine.Application.Services;
 using VendingMachine.Infrastructure.DbContexts;
-using VendingMachine.Infrastructure.Services;
 
 namespace VendingMachine.Infrastructure;
 

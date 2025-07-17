@@ -31,6 +31,10 @@ builder.Services.Configure<RouteOptions>(options =>
     options.LowercaseQueryStrings = true; 
 });
 
+builder.Services.Configure<ApiBehaviorOptions>(options => {
+    options.SuppressModelStateInvalidFilter = true;
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())

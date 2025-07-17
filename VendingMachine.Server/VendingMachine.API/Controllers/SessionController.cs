@@ -2,8 +2,8 @@
 using VendingMachine.API.Contracts.Session;
 using VendingMachine.API.Controllers.Base;
 using VendingMachine.API.Extensions;
-using VendingMachine.Application.Commands.SessionCommands.OccupySession;
-using VendingMachine.Application.Commands.SessionCommands.ReleaseSession;
+using VendingMachine.Application.Commands.Session.OccupySession;
+using VendingMachine.Application.Commands.Session.ReleaseSession;
 using VendingMachine.Application.Queries.Session.GetBusy;
 
 namespace VendingMachine.API.Controllers;

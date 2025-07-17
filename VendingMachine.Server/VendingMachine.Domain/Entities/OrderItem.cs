@@ -39,14 +39,13 @@ public class OrderItem : Entity<OrderItemId>
     public ProductId  ProductId { get; }
 
     /// <summary>
-    /// Обновляет информацию об элементе товара
+    /// Обновляет количество товара в заказе
     /// </summary>
-    /// <param name="updatedOrderItem">Обновленный элемент товара</param>
-    public void UpdateInfo(OrderItem updatedOrderItem)
+    /// <param name="quantity">Количество товара</param>
+    public void UpdateQuantity(Quantity quantity)
     {
-        BrandTitle = updatedOrderItem.BrandTitle;
-        ProductTitle = updatedOrderItem.ProductTitle;
-        ProductPrice = updatedOrderItem.ProductPrice;
-        Quantity = updatedOrderItem.Quantity;
+        Quantity = quantity;
     }
+    
+    
 }

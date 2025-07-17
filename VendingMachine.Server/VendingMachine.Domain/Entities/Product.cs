@@ -1,4 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
+using VendingMachine.Domain.Aggregates;
+using VendingMachine.Domain.Shared;
 using VendingMachine.Domain.ValueObjects;
 using VendingMachine.Domain.ValueObjects.Ids;
 
@@ -33,6 +35,9 @@ public class Product : Entity<ProductId>
     
     /// <summary> Идентификатор бренда, к которому принадлежит товар </summary>
     public BrandId BrandId { get; }
+    
+    /// <summary> Навигационное свойство бренд </summary>
+    public Brand Brand { get; private set; }
 
     /// <summary>
     /// Обновляет информацию о товаре
@@ -44,5 +49,39 @@ public class Product : Entity<ProductId>
         Title = updatedProduct.Title;
         Price = updatedProduct.Price;
         Stock = updatedProduct.Stock;
+    }
+
+    /// <summary>
+    /// Добавление количества товара
+    /// </summary>
+    /// <param name="value">Добавляемое количество</param>
+    /// <returns></returns>
+    public UnitResult<Error> AddStock(int value)
+    {
+        var result = Stock.Add(value);
+
+        if (result.IsFailure)
+            return result.Error;
+        
+        Stock = result.Value;
+
+        return Result.Success<Error>();
+    }
+    
+    /// <summary>
+    /// Вычитание количества товара
+    /// </summary>
+    /// <param name="value">Вычитаемое количество</param>
+    /// <returns></returns>
+    public UnitResult<Error> SubstractStock(int value)
+    {
+        var result = Stock.Substract(value);
+
+        if (result.IsFailure)
+            return result.Error;
+        
+        Stock = result.Value;
+
+        return Result.Success<Error>();
     }
 }

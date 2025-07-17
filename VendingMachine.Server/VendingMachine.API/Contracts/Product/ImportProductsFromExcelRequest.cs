@@ -1,4 +1,4 @@
-﻿using VendingMachine.Application.Commands.ProductCommands.ImportProductsFromExcel;
+﻿using VendingMachine.Application.Commands.Product.ImportProductsFromExcel;
 
 namespace VendingMachine.API.Contracts.Product;
 

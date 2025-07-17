@@ -19,6 +19,22 @@ public class Stock : ValueObject
         return new Stock(value);
     }
     
+    public Result<Stock, Error> Add(int addedValue)
+    {
+        if (addedValue <= 0) 
+            return Errors.General.ValueIsInvalid(nameof(Stock));
+        
+        return new Stock(Value + addedValue);
+    }
+    
+    public Result<Stock, Error> Substract(int substractedValue)
+    {
+        if (substractedValue <= 0) 
+            return Errors.General.ValueIsInvalid(nameof(Stock));
+        
+        return new Stock(Value - substractedValue);
+    }
+    
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;

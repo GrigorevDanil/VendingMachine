@@ -1,5 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using VendingMachine.Application.Abstractions;
+﻿using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
+using VendingMachine.Application.Abstractions.Messages;
 
 namespace VendingMachine.Application;
 
@@ -20,7 +21,10 @@ public static class Registration
                 .AssignableToAny(typeof(IQueryHandler<>),typeof(IQueryHandler<,>)))
             .AsSelfWithInterfaces()
             .WithScopedLifetime());
-
+        
+        
+        services.AddValidatorsFromAssembly(assembly);
+        
         return services;
     }
     

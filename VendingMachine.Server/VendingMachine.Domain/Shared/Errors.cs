@@ -19,6 +19,17 @@ namespace VendingMachine.Domain.Shared
 
         }
         
+        public static class Order
+        {
+            public static Error ProductNotEnough(Guid? id = null)
+            {
+                var forId = id == null ? "" : $" for Id '{id}'";
+                return Error.NotFound("PRODUCT_NOT_ENOUGH", $"Product{forId} not enough");
+            }   
+            
+
+        }
+        
         public static class Server
         {
             public static Error InternalServer(string message)
