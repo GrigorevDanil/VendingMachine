@@ -3,6 +3,7 @@ import { IconButton, TextField } from "@mui/material";
 type Props = {
   currentValue: number;
   maxValue: number;
+  minValue?: number;
   onIncrement: () => void;
   onDecrement: () => void;
   onTextChange: (value: string) => void;
@@ -11,6 +12,7 @@ type Props = {
 export const Counter = ({
   currentValue,
   maxValue,
+  minValue = 1,
   onIncrement,
   onDecrement,
   onTextChange,
@@ -19,7 +21,7 @@ export const Counter = ({
     <div className="flex items-center justify-center gap-2">
       <IconButton
         onClick={onDecrement}
-        disabled={currentValue <= 1}
+        disabled={currentValue <= minValue}
         size="small"
         sx={{
           width: 32,
