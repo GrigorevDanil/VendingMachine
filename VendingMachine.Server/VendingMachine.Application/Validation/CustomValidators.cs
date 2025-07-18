@@ -37,4 +37,17 @@ public static class CustomValidators
         });
     }
     
+    public static IRuleBuilderOptionsConditions<T, TElement[]> MustNotBeEmptyArray<T, TElement>(
+        this IRuleBuilder<T, TElement[]> ruleBuilder)
+    {
+        return ruleBuilder.Custom((array, context) =>
+        {
+            if (array == null || array.Length == 0)
+            {
+                var error = Errors.General.ArrayIsEmpty(context.PropertyName);
+                context.AddFailure(error.Serialize());
+            }
+        });
+    }
+    
 }

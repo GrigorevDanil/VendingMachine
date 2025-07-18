@@ -1,9 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VendingMachine.Application.Abstractions;
+using VendingMachine.Application.Abstractions.Repositories;
+using VendingMachine.Application.Abstractions.Repositories.Base;
 using VendingMachine.Application.Abstractions.Services;
 using VendingMachine.Application.Services;
 using VendingMachine.Infrastructure.DbContexts;
+using VendingMachine.Infrastructure.Repositories;
 
 namespace VendingMachine.Infrastructure;
 
@@ -45,6 +48,8 @@ public static class Registration
             .AsSelfWithInterfaces()
             .WithScopedLifetime());
 
+        services.AddScoped<ICoinRepository, CoinRepository>();
+        
         return services;
     }
 

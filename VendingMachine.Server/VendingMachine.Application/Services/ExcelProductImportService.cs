@@ -2,6 +2,7 @@
 using CSharpFunctionalExtensions;
 using Microsoft.AspNetCore.Http;
 using VendingMachine.Application.Abstractions;
+using VendingMachine.Application.Abstractions.Repositories.Base;
 using VendingMachine.Application.Abstractions.Services;
 using VendingMachine.Domain.Entities;
 using VendingMachine.Domain.Shared;

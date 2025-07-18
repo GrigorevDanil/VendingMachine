@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using VendingMachine.Application.Abstractions;
 using VendingMachine.Application.Abstractions.Messages;
+using VendingMachine.Application.Abstractions.Repositories.Base;
 using VendingMachine.Domain.Shared;
 using VendingMachine.Domain.ValueObjects;
 using VendingMachine.Domain.ValueObjects.Ids;
@@ -28,6 +29,7 @@ public class CreateOrderHandler : ICommandHandler<Guid, CreateOrderCommand>
     {
         var order = new Domain.Aggregates.Order(
             OrderId.Create(),
+            OrderStatus.AwaitPayment, 
             OrderDate.Create().Value,
             TotalAmount.Of(0).Value,
             []);

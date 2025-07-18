@@ -1,7 +1,7 @@
 ﻿using CSharpFunctionalExtensions;
 using VendingMachine.Domain.Shared;
 
-namespace VendingMachine.Application.Abstractions;
+namespace VendingMachine.Application.Abstractions.Repositories.Base;
 
 public interface IRepository<TEntity, TId> where TEntity : class
 {

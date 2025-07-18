@@ -27,12 +27,12 @@ public class Stock : ValueObject
         return new Stock(Value + addedValue);
     }
     
-    public Result<Stock, Error> Substract(int substractedValue)
+    public Result<Stock, Error> Subtract(int subtractedValue)
     {
-        if (substractedValue <= 0) 
+        if (subtractedValue <= 0) 
             return Errors.General.ValueIsInvalid(nameof(Stock));
         
-        return new Stock(Value - substractedValue);
+        return new Stock(Value - subtractedValue);
     }
     
     protected override IEnumerable<object> GetEqualityComponents()

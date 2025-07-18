@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.Extensions.Logging;
 using VendingMachine.Application.Abstractions;
 using VendingMachine.Application.Abstractions.Messages;
+using VendingMachine.Application.Abstractions.Repositories.Base;
 using VendingMachine.Application.Extensions;
 using VendingMachine.Domain.Shared;
 using VendingMachine.Domain.ValueObjects.Ids;

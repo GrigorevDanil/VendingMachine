@@ -75,7 +75,7 @@ public class Product : Entity<ProductId>
     /// <returns></returns>
     public UnitResult<Error> SubstractStock(int value)
     {
-        var result = Stock.Substract(value);
+        var result = Stock.Subtract(value);
 
         if (result.IsFailure)
             return result.Error;

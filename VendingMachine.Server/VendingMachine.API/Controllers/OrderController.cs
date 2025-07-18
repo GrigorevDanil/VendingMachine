@@ -4,8 +4,10 @@ using VendingMachine.API.Controllers.Base;
 using VendingMachine.API.Extensions;
 using VendingMachine.Application.Commands.Order.AddOrderItem;
 using VendingMachine.Application.Commands.Order.CreateOrder;
+using VendingMachine.Application.Commands.Order.CreateOrderWithItems;
 using VendingMachine.Application.Commands.Order.DeleteOrder;
 using VendingMachine.Application.Commands.Order.DeleteOrderItem;
+using VendingMachine.Application.Commands.Order.Payment;
 using VendingMachine.Application.Commands.Order.UpdateOrderItem;
 
 namespace VendingMachine.API.Controllers;
@@ -25,6 +27,48 @@ public class OrderController : ApplicationController
         CancellationToken cancellationToken)
     {
         var command = new CreateOrderCommand();
+        
+        var result = await handler.Handle(command, cancellationToken);
+        
+        if (result.IsFailure)
+            return result.Error.ToResponse();
+
+        return Ok(result.Value);
+    }
+    
+    /// <summary>
+    /// Создать заказ с товарами
+    /// </summary>
+    /// <response code="200"></response>
+    [HttpPost("multiple")]
+    public async Task<ActionResult> AddOrderWithItems(
+        [FromBody] CreateOrderWithItemsRequest request,
+        [FromServices] CreateOrderWithItemsHandler handler,
+        CancellationToken cancellationToken)
+    {
+        var command = request.ToCommand();
+        
+        var result = await handler.Handle(command, cancellationToken);
+        
+        if (result.IsFailure)
+            return result.Error.ToResponse();
+
+        return Ok(result.Value);
+    }
+    
+    /// <summary>
+    /// Оплатить заказ
+    /// </summary>
+    /// <param name="id">Идентификатор заказа</param>
+    /// <response code="200"></response>
+    [HttpPost("payment/{id:guid}")]
+    public async Task<ActionResult> PaymentOrder(
+        [FromRoute] Guid id,
+        [FromBody] PaymentRequest request,
+        [FromServices] PaymentHandler handler,
+        CancellationToken cancellationToken)
+    {
+        var command = request.ToCommand(id);
         
         var result = await handler.Handle(command, cancellationToken);
         

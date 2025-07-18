@@ -15,12 +15,16 @@ public class Order : Entity<OrderId>
     /// <summary> Конструктор для поддержки EF. Не использовать! </summary>
     private Order(OrderId id):base(id) { }
 
-    public Order(OrderId id, OrderDate createdAt, TotalAmount totalAmount, IEnumerable<OrderItem> items) : base(id)
+    public Order(OrderId id, OrderStatus status, OrderDate createdAt, TotalAmount totalAmount, IEnumerable<OrderItem> items) : base(id)
     {
+        Status = status;
         CreatedAt = createdAt;
         TotalAmount = totalAmount;
         _items = items.ToList();
     }
+    
+    /// <summary> Статус заказа </summary>
+    public OrderStatus Status { get; private set; }
 
     /// <summary> Дата и время создания заказ </summary>
     public OrderDate CreatedAt { get; }
@@ -30,6 +34,12 @@ public class Order : Entity<OrderId>
     
     /// <summary> Список представляющий состав заказа </summary>
     public IReadOnlyList<OrderItem> Items => _items;
+    
+    /// <summary>
+    /// Сменяет статус заказа на завершен
+    /// </summary>
+    /// <returns></returns>
+    public void Complete() => Status = OrderStatus.Complete;
 
     /// <summary>
     /// Добавление элемента заказа в список заказа
@@ -47,7 +57,7 @@ public class Order : Entity<OrderId>
         
         _items.Add(item);
 
-        return Result.Success<Error>();
+        return UnitResult.Success<Error>();
     }
     
     /// <summary>
@@ -84,7 +94,7 @@ public class Order : Entity<OrderId>
         
         _items.Remove(orderItem);
         
-        return Result.Success<Error>();
+        return UnitResult.Success<Error>();
     }
 
     /// <summary>
@@ -113,6 +123,6 @@ public class Order : Entity<OrderId>
 
         TotalAmount = addResult.Value;
         
-        return Result.Success<Error>();
+        return UnitResult.Success<Error>();
     }
 }

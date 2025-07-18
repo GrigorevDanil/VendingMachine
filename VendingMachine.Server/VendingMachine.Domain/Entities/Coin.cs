@@ -1,5 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
-using VendingMachine.Domain.Enums;
+using VendingMachine.Domain.Shared;
 using VendingMachine.Domain.ValueObjects;
 using VendingMachine.Domain.ValueObjects.Ids;
 
@@ -22,14 +22,38 @@ public class Coin : Entity<CoinId>
     
     /// <summary> Количество монет, имеющееся в автомате </summary>
     public Stock Stock { get;private set; }
+
+    /// <summary>
+    /// Добавления монет
+    /// </summary>
+    /// <param name="value">Количество монет</param>
+    /// <returns></returns>
+    public UnitResult<Error> AddStock(int value)
+    {
+        var result = Stock.Add(value);
+        
+        if (result.IsFailure) 
+            return result.Error;
+
+        Stock = result.Value;
+        
+        return UnitResult.Success<Error>();
+    }
     
     /// <summary>
-    /// Обновление информации о монете
+    /// Вычитание монет
     /// </summary>
-    /// <param name="updatedCoin">Обновленная монета</param>
-    public void UpdateInfo(Coin updatedCoin)
+    /// <param name="value">Количество монет</param>
+    /// <returns></returns>
+    public UnitResult<Error> SubtrackStock(int value)
     {
-        Denomination = updatedCoin.Denomination;
-        Stock = updatedCoin.Stock;
+        var result = Stock.Subtract(value);
+        
+        if (result.IsFailure) 
+            return result.Error;
+
+        Stock = result.Value;
+        
+        return UnitResult.Success<Error>();
     }
 }

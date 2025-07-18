@@ -17,6 +17,11 @@ namespace VendingMachine.Domain.Shared
                 return Error.NotFound("RECORD_NOT_FOUND", $"Record not found{forId}");
             }
 
+            public static Error ArrayIsEmpty(string? arrayName = null)
+            {
+                var withName = arrayName == null ? "" : $"with name '{arrayName}' ";
+                return Error.Validation("ARRAY_IS_EMPTY", $"Array {withName}is empty");
+            }
         }
         
         public static class Order
@@ -24,17 +29,30 @@ namespace VendingMachine.Domain.Shared
             public static Error ProductNotEnough(Guid? id = null)
             {
                 var forId = id == null ? "" : $" for Id '{id}'";
-                return Error.NotFound("PRODUCT_NOT_ENOUGH", $"Product{forId} not enough");
+                return Error.Failure("PRODUCT_NOT_ENOUGH", $"Product{forId} not enough");
             }   
             
-
+            public static Error CoinsNotEnoughForPayment()
+            {
+                return Error.Failure("COINS_NOT_ENOUGH_FOR_PAYMENT", $"Coins not  enough for payment");
+            }   
+            
+            public static Error NotEnoughAvailableCoins()
+            {
+                return Error.Failure("NOT_ENOUGH_AVAILABLE_COINS", "The vending machine doesn't have enough coins to give change");
+            }
+            
+            public static Error OrderAlreadyPayment()
+            {
+                return Error.Failure("ORDER_ALREADY_PAYMENT", "Order already payment");
+            }
         }
         
         public static class Server
         {
             public static Error InternalServer(string message)
             {
-                return Error.Validation("INTERNAL_SERVER_ERROR", message);
+                return Error.Failure("INTERNAL_SERVER_ERROR", message);
             }
 
         }
@@ -53,17 +71,17 @@ namespace VendingMachine.Domain.Shared
             
             public static Error NotProvide()
             {
-                return Error.NotFound("FILE_NOT_PROVIDE", "File not provide");
+                return Error.Failure("FILE_NOT_PROVIDE", "File not provide");
             }
             
             public static Error NotImage()
             {
-                return Error.NotFound("FILE_NOT_IMAGE", $"File not image");
+                return Error.Failure("FILE_NOT_IMAGE", $"File not image");
             }
 
             public static Error NotExcel()
             {
-                return Error.NotFound("FILE_NOT_EXCEL", $"File not excel file");
+                return Error.Failure("FILE_NOT_EXCEL", $"File not excel file");
             }
         }
         

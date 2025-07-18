@@ -15,6 +15,15 @@ public class OrderConfiguration: IEntityTypeConfiguration<Order>
         builder.Property(x => x.Id)
             .HasConversion(id => id.Value, idGuid => OrderId.Of(idGuid));
         
+        builder.ComplexProperty(x => x.Status, 
+            p =>
+            {
+                p.Property(x => x.Value)
+                    .HasColumnName(nameof(Order.Status))
+                    .HasMaxLength(OrderStatus.MAX_LENGTH)
+                    .IsRequired();
+            });
+        
         builder.ComplexProperty(x => x.CreatedAt, 
             p =>
             {
