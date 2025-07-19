@@ -38,7 +38,7 @@ public class ExcelProductImportService : IExcelProductImportService
         
         const string PRICE_NAME = nameof(Price);
         
-        const string FILEPATH_NAME = nameof(FilePath);
+        const string IMAGE_URL_NAME = nameof(ImageUrl);
         
         const string STOCK_NAME = nameof(Stock);
         
@@ -54,7 +54,7 @@ public class ExcelProductImportService : IExcelProductImportService
         var headers = headerRow.CellsUsed()
             .ToDictionary(c => c.Value.ToString().Trim(), c => c.Address.ColumnNumber);
         
-        var requiredHeaders = new[] { TITLE_NAME,  PRICE_NAME, FILEPATH_NAME, STOCK_NAME, BRAND_ID_NAME };
+        var requiredHeaders = new[] { TITLE_NAME,  PRICE_NAME, IMAGE_URL_NAME, STOCK_NAME, BRAND_ID_NAME };
         foreach (var header in requiredHeaders)
         {
             if (!headers.ContainsKey(header))
@@ -73,7 +73,7 @@ public class ExcelProductImportService : IExcelProductImportService
             var title = row.Cell(headers[TITLE_NAME]).GetString();
             var price = row.Cell(headers[PRICE_NAME]).GetValue<decimal>();
             var stockIsInt = int.TryParse(row.Cell(headers[STOCK_NAME]).GetString(), out var stock);
-            var imagePath = row.Cell(headers[FILEPATH_NAME]).GetString();
+            var imagePath = row.Cell(headers[IMAGE_URL_NAME]).GetString();
             var brandIdIsGuid = Guid.TryParse(row.Cell(headers[BRAND_ID_NAME]).GetString(), out var brandId);
 
             if (!stockIsInt) 
@@ -94,14 +94,14 @@ public class ExcelProductImportService : IExcelProductImportService
             if (stockResult.IsFailure)
                 return stockResult.Error.ToErrorList();
 
-            var filePathResult = FilePath.Of(imagePath);
-            if (filePathResult.IsFailure)
-                return filePathResult.Error.ToErrorList();
+            var imageUrlResult = ImageUrl.Of(imagePath);
+            if (imageUrlResult.IsFailure)
+                return imageUrlResult.Error.ToErrorList();
 
             var productId = ProductId.Create();
             var product = new Product(
                 productId,
-                filePathResult.Value,
+                imageUrlResult.Value,
                 titleResult.Value,
                 priceResult.Value,
                 stockResult.Value,

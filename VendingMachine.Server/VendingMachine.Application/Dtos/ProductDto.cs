@@ -6,7 +6,7 @@ public class ProductDto : Entity<Guid>
 {
     public Guid BrandId { get; init; }
     
-    public string FilePath { get; init; } = string.Empty;
+    public string ImageUrl { get; init; } = string.Empty;
     
     public string Title { get; init; } = string.Empty;
     

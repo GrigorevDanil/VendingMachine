@@ -56,7 +56,7 @@ namespace VendingMachine.Domain.Shared
             }
 
         }
-        
+
         public static class File
         {
             public static Error FileIsInvalid(string message)
@@ -83,7 +83,20 @@ namespace VendingMachine.Domain.Shared
             {
                 return Error.Failure("FILE_NOT_EXCEL", $"File not excel file");
             }
+            
+            public static Error ExtensionNotSupport()
+            {
+                return Error.Validation("EXTENSION_NOT_SUPPORT", "Extension not support");
+            }
         }
-        
+
+        public static class Url
+        {
+            public static Error InvalidUrlFormat()
+            {
+                return Error.Validation("INVALID_URL_FORMAT", "Url format is invalid");
+            }
+        }
+
     }
 }

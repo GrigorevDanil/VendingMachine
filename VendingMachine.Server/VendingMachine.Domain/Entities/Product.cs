@@ -12,17 +12,17 @@ public class Product : Entity<ProductId>
     /// <summary> Конструктор для поддержки EF. Не использовать! </summary>
     private Product(ProductId id) : base(id) { }
 
-    public Product(ProductId id, FilePath filePath, Title title, Price price, Stock stock, BrandId brandId) : base(id)
+    public Product(ProductId id, ImageUrl imageUrl, Title title, Price price, Stock stock, BrandId brandId) : base(id)
     {
-        FilePath = filePath;
+        ImageUrl = imageUrl;
         Title = title;
         Price = price;
         Stock = stock;
         BrandId = brandId;
     }
     
-    /// <summary> Путь к картинке </summary>
-    public FilePath FilePath { get; private set; }
+    /// <summary> URL картинки </summary>
+    public ImageUrl ImageUrl { get; private set; }
 
     /// <summary> Название товара </summary>
     public Title Title { get; private set; }
@@ -38,18 +38,6 @@ public class Product : Entity<ProductId>
     
     /// <summary> Навигационное свойство бренд </summary>
     public Brand Brand { get; private set; }
-
-    /// <summary>
-    /// Обновляет информацию о товаре
-    /// </summary>
-    /// <param name="updatedProduct">Обновленный товар</param>
-    public void UpdateInfo(Product updatedProduct)
-    {
-        FilePath = updatedProduct.FilePath;
-        Title = updatedProduct.Title;
-        Price = updatedProduct.Price;
-        Stock = updatedProduct.Stock;
-    }
 
     /// <summary>
     /// Добавление количества товара

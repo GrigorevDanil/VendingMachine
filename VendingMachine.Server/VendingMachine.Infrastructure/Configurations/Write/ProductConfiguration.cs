@@ -15,11 +15,12 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.Property(x => x.Id)
             .HasConversion(id => id.Value, idGuid => ProductId.Of(idGuid));
         
-        builder.ComplexProperty(x => x.FilePath, 
+        builder.ComplexProperty(x => x.ImageUrl, 
             p =>
             {
                 p.Property(x => x.Value)
-                    .HasColumnName(nameof(Product.FilePath))
+                    .HasColumnName(nameof(Product.ImageUrl))
+                    .HasMaxLength(ImageUrl.MAX_LENGTH)
                     .IsRequired();
             });
         
