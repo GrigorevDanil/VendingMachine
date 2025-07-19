@@ -6,7 +6,7 @@ export type ProductStatus = "available" | "selected" | "sold_out";
 
 export type Product = {
   id: ProductId;
-  filePath: string;
+  imageUrl: string;
   title: string;
   price: number;
   stock: number;

@@ -4,7 +4,7 @@ import { ProductStatus } from "../../types";
 export const ProductDtoSchema = z
   .object({
     id: z.uuid(),
-    filePath: z.string(),
+    imageUrl: z.string(),
     title: z.string(),
     price: z.number(),
     stock: z.number(),

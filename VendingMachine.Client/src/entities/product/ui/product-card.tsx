@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { BASE_URL } from "@/shared/api/constants";
 import { Card, CardActions } from "@mui/material";
 import { ToggleProduct } from "@/features/product/toggle-product";
 import { Product } from "../types";
@@ -9,7 +8,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
     <Card className="bg-white shadow-md rounded-lg overflow-hidden h-full flex flex-col">
       <div className="relative w-full aspect-square">
         <Image
-          src={`${BASE_URL}/images/${product.filePath}`}
+          src={product.imageUrl}
           alt={product.title}
           className="object-contain bg-gray-50"
           fill
