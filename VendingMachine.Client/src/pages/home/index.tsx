@@ -1,54 +1,20 @@
 "use client";
 
 import { ProductList } from "@/entities/product/ui/product-list";
-import {
-  useGetBusyQuery,
-  useOccupySessionMutation,
-  useReleaseSessionMutation,
-} from "@/entities/session/api/sessionApi";
+
 import { ProductFilter } from "@/features/product/product-filter";
 import { ProductPagination } from "@/features/product/product-pagination";
 import { Header } from "@/widgets/header";
 import { FileUpload } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { v4 as randomUUID } from "uuid";
-import { useRouter } from "next/navigation";
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
 import { useImportProductFromExcelMutation } from "@/entities/product/api/productApi";
 import { enqueueSnackbar } from "notistack";
 
 export const HomePage = () => {
-  const router = useRouter();
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  const [idSession] = useState<string>(randomUUID());
-
-  const [occupySession] = useOccupySessionMutation({});
-
-  const [releaseSession] = useReleaseSessionMutation({});
-
-  const { data: isBusy } = useGetBusyQuery(idSession);
-
   const [importProductsFromExcel] = useImportProductFromExcelMutation({});
 
-  useEffect(() => {
-    if (isBusy === "Close") {
-      router.push("/isBusy");
-    } else if (isBusy === "Open") {
-      occupySession(idSession);
-    }
-
-    const handleBeforeUnload = () => {
-      releaseSession({});
-    };
-
-    window.addEventListener("beforeunload", handleBeforeUnload);
-
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-      releaseSession({});
-    };
-  }, [idSession, isBusy, occupySession, releaseSession, router]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleImportClick = () => {
     fileInputRef.current?.click();
@@ -66,10 +32,7 @@ export const HomePage = () => {
         return;
       }
 
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-
-      await importProductsFromExcel(formData).unwrap();
+      await importProductsFromExcel(selectedFile).unwrap();
 
       enqueueSnackbar("Успешный импорт", { variant: "success" });
     }

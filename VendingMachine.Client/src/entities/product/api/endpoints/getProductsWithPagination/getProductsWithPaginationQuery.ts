@@ -1,4 +1,4 @@
-import { SortByProduct } from "@/entities/product/slices/product-list.slice";
+import { SortByProduct } from "@/entities/product/model/product-list.slice";
 
 export type GetProductsWithPaginationQueryParams = {
   Page: number;
@@ -15,7 +15,7 @@ export const getProductsWithPaginationQuery = (
 ) => {
   const queryParams = new URLSearchParams();
 
-  if (params.BrandId && params.BrandId !== "")
+  if (params.BrandId && params.BrandId !== "all")
     queryParams.append("BrandId", params.BrandId);
   if (params.Title) queryParams.append("Title", params.Title);
   if (params.MinPrice)

@@ -19,7 +19,7 @@ export type State = {
 const initialState: State = {
   currentPage: 1,
   maxPage: 1,
-  selectedBrandId: "",
+  selectedBrandId: "all",
   minPrice: 0,
   maxPrice: 0,
   sortBy: "",

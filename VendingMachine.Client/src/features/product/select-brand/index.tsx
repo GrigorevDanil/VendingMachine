@@ -38,6 +38,9 @@ export const SelectBrand = ({ className }: { className?: string }) => {
           value={selectedBrandId}
           onChange={(e) => handleSelectBrandId(e.target.value as string)}
         >
+          <MenuItem value="all" divider>
+            Все бренды
+          </MenuItem>
           {!isLoading &&
             brandResponse?.result?.map((brand) => (
               <MenuItem key={brand.id} value={brand.id}>
@@ -45,11 +48,11 @@ export const SelectBrand = ({ className }: { className?: string }) => {
               </MenuItem>
             ))}
         </WhiteSelect>
-        {selectedBrandId && (
+        {selectedBrandId && selectedBrandId !== "all" && (
           <IconButton
             className=" text-white bg-red-500 rounded"
             aria-label="clear"
-            onClick={() => handleSelectBrandId("")}
+            onClick={() => handleSelectBrandId("all")}
           >
             <Clear />
           </IconButton>

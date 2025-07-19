@@ -56,19 +56,33 @@ export const ProductList = () => {
     }
   }, [productResponse, isLoading, dispatch]);
 
-  return (
-    <Panel className="h-full">
-      {isLoading ? (
-        <div className="flex justify-center items-center">
-          <CircularProgress className="text-white" />
+  const renderList = () => {
+    if (isLoading)
+      return (
+        <div className="flex">
+          <CircularProgress className="text-white m-auto" />
         </div>
-      ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-          {productResponse?.result?.items.map((product) => (
-            <ProductCard key={product.id} product={product} />
-          ))}
-        </div>
-      )}
-    </Panel>
-  );
+      );
+
+    if (productResponse?.result) {
+      const { items } = productResponse?.result;
+
+      if (items.length === 0)
+        return (
+          <div className="flex">
+            <p className="text-4xl text-white m-auto">Напитки не найдены</p>
+          </div>
+        );
+      else
+        return (
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
+            {items.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        );
+    }
+  };
+
+  return <Panel className="h-full">{renderList()}</Panel>;
 };

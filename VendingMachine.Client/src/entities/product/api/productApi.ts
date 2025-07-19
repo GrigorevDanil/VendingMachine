@@ -10,6 +10,7 @@ import {
   GetProductsWithPaginationQueryParams,
   getProductsWithPaginationQuery,
 } from "./endpoints/getProductsWithPagination/getProductsWithPaginationQuery";
+import { importProductsFromExcelQuery } from "./endpoints/importProductsFromExcel/importProductsFromExcelQuery";
 
 const productApi = baseApi.injectEndpoints({
   endpoints: (create) => ({
@@ -25,12 +26,10 @@ const productApi = baseApi.injectEndpoints({
         ),
       transformErrorResponse: (response) => handleError(response),
     }),
-    importProductFromExcel: create.mutation<void, FormData>({
-      query: (formData) => ({
-        url: "api/product/import",
-        method: "POST",
-        body: formData,
-      }),
+    importProductFromExcel: create.mutation<void, File>({
+      query: (file) => importProductsFromExcelQuery(file),
+      transformErrorResponse: (response) => handleError(response),
+      invalidatesTags: ["Product"],
     }),
   }),
   overrideExisting: true,

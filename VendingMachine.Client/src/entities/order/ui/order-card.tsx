@@ -1,6 +1,5 @@
 "use client";
 
-import { BASE_URL } from "@/shared/api/constants";
 import Image from "next/image";
 import { OrderItem } from "../model/order";
 import { QuantityCounter } from "@/features/order/quantity-counter";
@@ -12,7 +11,7 @@ export const OrderCard = ({ orderItem }: { orderItem: OrderItem }) => {
       <div className="col-span-6 flex items-center gap-4">
         <div className="w-20 h-20 relative">
           <Image
-            src={`${BASE_URL}/images/${orderItem.product.imageUrl}`}
+            src={orderItem.product.imageUrl}
             alt={orderItem.product.title}
             className="object-contain rounded"
             fill

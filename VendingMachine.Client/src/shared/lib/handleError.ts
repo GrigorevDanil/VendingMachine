@@ -1,6 +1,7 @@
 import z from "zod";
 import { EnvelopeSchema } from "../model/envelope";
 import { enqueueSnackbar } from "notistack";
+import { getRouter } from "@/app/lib";
 
 export const ErrorResponseSchema = z.object({
   status: z.number(),
@@ -8,6 +9,8 @@ export const ErrorResponseSchema = z.object({
 });
 
 export const handleError = async (response: unknown) => {
+  console.log(response);
+
   const envelopeSchema = EnvelopeSchema(z.null());
   const envelopResponseResult = await envelopeSchema.safeParseAsync(response);
 
@@ -28,6 +31,12 @@ export const handleError = async (response: unknown) => {
     const { data: errorData } = errorResponse;
 
     if (errorData?.data?.errors) {
+      if (errorData?.data?.errors[0].code === "SESSION_IS_BUSY") {
+        const router = getRouter();
+        router.push("/isBusy");
+        return;
+      }
+
       errorData.data.errors.forEach((error) => {
         enqueueSnackbar(error.message, { variant: "error" });
       });
