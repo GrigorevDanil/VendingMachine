@@ -6,8 +6,8 @@ import {
   useOccupySessionMutation,
   useReleaseSessionMutation,
 } from "@/entities/session/api/sessionApi";
-import { ProductFilter } from "@/features/product-filter";
-import { ProductPagination } from "@/features/product-pagination";
+import { ProductFilter } from "@/features/product/product-filter";
+import { ProductPagination } from "@/features/product/product-pagination";
 import { Header } from "@/widgets/header";
 import { FileUpload } from "@mui/icons-material";
 import { Button } from "@mui/material";

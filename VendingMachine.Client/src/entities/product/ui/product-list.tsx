@@ -6,7 +6,7 @@ import { ProductCard } from "./product-card";
 import { Panel } from "@/shared/ui/panel";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/shared/model/redux";
-import { productListSlice } from "../slices/product-list.slice";
+import { productListSlice } from "../model/product-list.slice";
 
 export const ProductList = () => {
   const dispatch = useAppDispatch();

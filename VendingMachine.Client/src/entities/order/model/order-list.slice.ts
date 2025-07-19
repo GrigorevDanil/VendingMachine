@@ -1,5 +1,9 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit/react";
-import { OrderItem } from "../model/order";
+import {
+  PayloadAction,
+  createSelector,
+  createSlice,
+} from "@reduxjs/toolkit/react";
+import { OrderItem } from "./order";
 import { Product } from "@/entities/product/types";
 
 export type State = {
@@ -18,6 +22,11 @@ export const orderListSlice = createSlice({
     isProductInOrder: (state: State, productId: string) =>
       state.orderItems.some((item) => item.product.id === productId),
     orderItemsCount: (state: State) => state.orderItems.length,
+    sumOrder: createSelector(
+      (state: State) => state.orderItems,
+      (items) =>
+        items.reduce((sum, item) => sum + item.product.price * item.quantity, 0)
+    ),
   },
   reducers: {
     addProductInOrder: (state, action: PayloadAction<{ product: Product }>) => {
@@ -62,6 +71,9 @@ export const orderListSlice = createSlice({
         (item) => item.product.id === productId
       );
       if (item && item.quantity > 0) item.quantity--;
+    },
+    resetOrderList: (state) => {
+      state.orderItems = initialState.orderItems;
     },
   },
 });

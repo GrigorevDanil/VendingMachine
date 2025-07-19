@@ -1,12 +1,13 @@
 "use client";
 
 import { useAppSelector } from "@/shared/model/redux";
-import { orderListSlice } from "../slices/order-list.slice";
+import { orderListSlice } from "../model/order-list.slice";
 import { Panel } from "@/shared/ui/panel";
 import { OrderCard } from "./order-card";
 
 export const OrderList = () => {
   const orderItems = useAppSelector(orderListSlice.selectors.orderItems);
+  const sumOrder = useAppSelector(orderListSlice.selectors.sumOrder);
 
   if (orderItems.length === 0)
     return (
@@ -33,9 +34,7 @@ export const OrderList = () => {
       </div>
 
       <div className="mt-6 text-right text-white font-bold text-xl">
-        {`Итоговая сумма: ${orderItems
-          .reduce((sum, item) => sum + item.product.price * item.quantity, 0)
-          .toFixed(2)} руб.`}
+        {`Итоговая сумма: ${sumOrder.toFixed(2)} руб.`}
       </div>
     </Panel>
   );

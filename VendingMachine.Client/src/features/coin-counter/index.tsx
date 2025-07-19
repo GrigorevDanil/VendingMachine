@@ -1,5 +1,5 @@
+import { coinListSlice } from "@/entities/coin";
 import { Coin } from "@/entities/coin/model/coin";
-import { coinListSlice } from "@/entities/coin/slices/coin-list.slise";
 import { useAppDispatch } from "@/shared/model/redux";
 import { Counter } from "@/shared/ui/counter";
 
@@ -8,11 +8,10 @@ export const CoinCounter = ({ coin }: { coin: Coin }) => {
 
   const handleStockChange = (value: string) => {
     if (/^\d*$/.test(value)) {
-      console.log(value);
       dispatch(
-        coinListSlice.actions.updateStock({
+        coinListSlice.actions.updateQuantity({
           denomination: coin.denomination,
-          stock: parseInt(value),
+          quantity: parseInt(value),
         })
       );
     }
@@ -20,19 +19,19 @@ export const CoinCounter = ({ coin }: { coin: Coin }) => {
 
   return (
     <Counter
-      currentValue={coin.stock}
+      currentValue={coin.quantity}
       maxValue={999}
       minValue={0}
       onIncrement={() =>
         dispatch(
-          coinListSlice.actions.incrementStock({
+          coinListSlice.actions.incrementQuantity({
             denomination: coin.denomination,
           })
         )
       }
       onDecrement={() =>
         dispatch(
-          coinListSlice.actions.decrementStock({
+          coinListSlice.actions.decrementQuantity({
             denomination: coin.denomination,
           })
         )

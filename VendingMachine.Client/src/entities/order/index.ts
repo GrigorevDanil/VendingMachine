@@ -1,2 +1,2 @@
 export * from "./ui";
-export * from "./slices/order-list.slice";
+export * from "./model/order-list.slice";

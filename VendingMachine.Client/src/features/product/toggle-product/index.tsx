@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 import clsx from "clsx";
 import { useAppDispatch, useAppSelector } from "@/shared/model/redux";
 import { Product, ProductStatus } from "@/entities/product/types";
-import { orderListSlice } from "@/entities/order/slices/order-list.slice";
+import { orderListSlice } from "@/entities/order";
 
 export const ToggleProduct = ({ product }: { product: Product }) => {
   const dispatch = useAppDispatch();

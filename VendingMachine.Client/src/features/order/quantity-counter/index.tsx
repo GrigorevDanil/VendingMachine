@@ -1,5 +1,5 @@
 import { OrderItem } from "@/entities/order/model/order";
-import { orderListSlice } from "@/entities/order/slices/order-list.slice";
+import { orderListSlice } from "@/entities/order";
 import { useAppDispatch } from "@/shared/model/redux";
 import { Counter } from "@/shared/ui/counter";
 

@@ -5,11 +5,11 @@ import {
   ProductPaginationListSchema,
 } from "./dtos";
 import { Envelope, EnvelopeSchema } from "@/shared/model/envelope";
+import { handleError } from "@/shared/lib/handleError";
 import {
   GetProductsWithPaginationQueryParams,
   getProductsWithPaginationQuery,
-} from "./queries";
-import { handleError } from "@/shared/lib/handleError";
+} from "./endpoints/getProductsWithPagination/getProductsWithPaginationQuery";
 
 const productApi = baseApi.injectEndpoints({
   endpoints: (create) => ({

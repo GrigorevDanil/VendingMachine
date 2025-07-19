@@ -2,9 +2,8 @@
 
 import { useAppSelector } from "@/shared/model/redux";
 import { Panel } from "@/shared/ui/panel";
-import { coinListSlice } from "../slices/coin-list.slise";
+import { coinListSlice } from "../model/coin-list.slise";
 import { CoinCard } from "./coin-card";
-import { getDenomination } from "../model/coin";
 import { orderListSlice } from "@/entities/order";
 import clsx from "clsx";
 
@@ -18,11 +17,11 @@ export const CoinList = () => {
   );
 
   const deposit = coins.reduce(
-    (sum, item) => sum + getDenomination(item) * item.stock,
+    (sum, item) => sum + item.denomination * item.quantity,
     0
   );
 
-  const isDepositEnough = deposit > sum;
+  const isDepositEnough = deposit >= sum;
 
   return (
     <Panel className="h-full">

@@ -1,8 +1,9 @@
+import { coinListSlice } from "@/entities/coin";
+import { remainsListSlice } from "@/entities/coin/model/remains-list.slice";
+import { orderListSlice } from "@/entities/order";
 import { productListSlice } from "@/entities/product";
-import { orderListSlice } from "@/entities/order/slices/order-list.slice";
 import { baseApi } from "@/shared/api";
 import { configureStore } from "@reduxjs/toolkit/react";
-import { coinListSlice } from "@/entities/coin/slices/coin-list.slise";
 
 export const makeStore = () =>
   configureStore({
@@ -11,6 +12,7 @@ export const makeStore = () =>
       [productListSlice.reducerPath]: productListSlice.reducer,
       [orderListSlice.reducerPath]: orderListSlice.reducer,
       [coinListSlice.reducerPath]: coinListSlice.reducer,
+      [remainsListSlice.reducerPath]: remainsListSlice.reducer,
     },
 
     middleware: (getDefaultMiddleware) =>

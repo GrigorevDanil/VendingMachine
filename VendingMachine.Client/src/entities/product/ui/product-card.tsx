@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { BASE_URL } from "@/shared/api/constants";
 import { Card, CardActions } from "@mui/material";
-import { ToggleProduct } from "@/features/toggle-product";
+import { ToggleProduct } from "@/features/product/toggle-product";
 import { Product } from "../types";
 
 export const ProductCard = ({ product }: { product: Product }) => {

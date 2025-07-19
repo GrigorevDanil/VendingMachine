@@ -3,8 +3,8 @@
 import { BASE_URL } from "@/shared/api/constants";
 import Image from "next/image";
 import { OrderItem } from "../model/order";
-import { QuantityCounter } from "@/features/quantity-counter";
-import { RemoveProductFromOrder } from "@/features/remove-product-from-order";
+import { QuantityCounter } from "@/features/order/quantity-counter";
+import { RemoveProductFromOrder } from "@/features/product/remove-product-from-order";
 
 export const OrderCard = ({ orderItem }: { orderItem: OrderItem }) => {
   return (
