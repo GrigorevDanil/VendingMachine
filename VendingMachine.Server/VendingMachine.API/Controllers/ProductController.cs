@@ -30,7 +30,7 @@ public class ProductController : ApplicationController
     }
     
     /// <summary>
-    /// Импорт товаров из Excel файла (BrandId, Title, Price, Stock, FilePath - необходимые столбцы)
+    /// Импорт товаров из Excel файла (BrandId, Title, Price, Stock, ImageUrl - необходимые столбцы)
     /// </summary>
     /// <response code="200"></response>
     [HttpPost("import")]

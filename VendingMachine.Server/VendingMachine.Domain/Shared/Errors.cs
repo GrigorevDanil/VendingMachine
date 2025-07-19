@@ -97,6 +97,14 @@ namespace VendingMachine.Domain.Shared
                 return Error.Validation("INVALID_URL_FORMAT", "Url format is invalid");
             }
         }
+        
+        public static class Session
+        {
+            public static Error SessionIsBusy()
+            {
+                return Error.Validation("SESSION_IS_BUSY", "Session is busy");
+            }
+        }
 
     }
 }

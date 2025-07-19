@@ -35,6 +35,12 @@ builder.Services.Configure<ApiBehaviorOptions>(options => {
     options.SuppressModelStateInvalidFilter = true;
 });
 
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(2);
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -46,7 +52,8 @@ if (app.Environment.IsDevelopment())
 app.UseCors(builder => builder
     .WithOrigins("http://localhost:3000")
     .AllowAnyMethod()
-    .AllowAnyHeader());
+    .AllowAnyHeader()
+    .AllowCredentials());
 
 var imageFolder = Path.Combine(
     Directory.GetParent(Directory.GetCurrentDirectory())!.FullName,
@@ -62,6 +69,10 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.UseHttpsRedirection();
+
+app.UseSession();
+
+app.UseSingleUserMiddleware();
 
 app.UseExceptionMiddleware();
 
