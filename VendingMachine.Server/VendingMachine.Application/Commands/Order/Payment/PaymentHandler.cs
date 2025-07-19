@@ -12,7 +12,7 @@ using VendingMachine.Domain.ValueObjects.Ids;
 
 namespace VendingMachine.Application.Commands.Order.Payment;
 
-public class PaymentHandler : ICommandHandler<PaymentCoin[],PaymentCommand>
+public class PaymentHandler : ICommandHandler<PaymentResponse,PaymentCommand>
 {
     private readonly IValidator<PaymentCommand> _validator; 
     
@@ -33,7 +33,7 @@ public class PaymentHandler : ICommandHandler<PaymentCoin[],PaymentCommand>
         _logger = logger;
     }
 
-    public async Task<Result<PaymentCoin[], ErrorList>> Handle(PaymentCommand command, CancellationToken cancellationToken = default)
+    public async Task<Result<PaymentResponse, ErrorList>> Handle(PaymentCommand command, CancellationToken cancellationToken = default)
     {
         var validationResult = await _validator.ValidateAsync(command, cancellationToken);
         if (validationResult.IsValid == false) 
@@ -65,10 +65,11 @@ public class PaymentHandler : ICommandHandler<PaymentCoin[],PaymentCommand>
                 return addedResult.Error.ToErrorList();
             
         }
+
         
         var remains = sumAcceptCoins - order.TotalAmount.Value;
         var remainsCoins = new List<PaymentCoin>();
-
+        
         if (remains > 0)
         {
             var availableCoins = await _coinRepository.GetAllByDescAsync(cancellationToken);
@@ -104,6 +105,8 @@ public class PaymentHandler : ICommandHandler<PaymentCoin[],PaymentCommand>
         
         _logger.LogInformation("Order '{orderId}' has been completed", order.Id.Value);
 
-        return remainsCoins.ToArray();
+        return new PaymentResponse(
+            sumAcceptCoins - order.TotalAmount.Value,
+            remainsCoins.ToArray());
     }
 }
