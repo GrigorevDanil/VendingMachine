@@ -1,6 +1,8 @@
 ﻿using VendingMachine.Application.Models;
 using VendingMachine.Domain.Shared;
 
+namespace VendingMachine.API.Middlewares;
+
 public class SingleUserMiddleware
 {
     private readonly RequestDelegate _next;
