@@ -38,6 +38,23 @@ public class Product : Entity<ProductId>
     
     /// <summary> Навигационное свойство бренд </summary>
     public Brand Brand { get; private set; }
+    
+    /// <summary>
+    /// Установка количества товара
+    /// </summary>
+    /// <param name="value">количество</param>
+    /// <returns></returns>
+    public UnitResult<Error> SetStock(int value)
+    {
+        var result = Stock.Of(value);
+
+        if (result.IsFailure)
+            return result.Error;
+        
+        Stock = result.Value;
+
+        return UnitResult.Success<Error>();
+    }
 
     /// <summary>
     /// Добавление количества товара
@@ -53,7 +70,7 @@ public class Product : Entity<ProductId>
         
         Stock = result.Value;
 
-        return Result.Success<Error>();
+        return UnitResult.Success<Error>();
     }
     
     /// <summary>
@@ -70,6 +87,6 @@ public class Product : Entity<ProductId>
         
         Stock = result.Value;
 
-        return Result.Success<Error>();
+        return UnitResult.Success<Error>();
     }
 }
