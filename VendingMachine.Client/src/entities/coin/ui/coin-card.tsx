@@ -1,10 +1,10 @@
 "use client";
 
-import { CoinImage } from "@/widgets/coin-image";
-import { Coin } from "../model/coin";
-import { CoinCounter } from "@/features/coin-counter";
+import { CoinImage } from "@/widgets/coin/coin-image";
+import { DepositCoin } from "../types";
+import { CoinCounter } from "@/features/coin/coin-counter";
 
-export const CoinCard = ({ coin }: { coin: Coin }) => {
+export const CoinCard = ({ coin }: { coin: DepositCoin }) => {
   return (
     <div className="grid grid-cols-12 gap-4 items-center bg-white bg-opacity-90 p-4 rounded-lg">
       <div className="col-span-6 flex items-center gap-4">

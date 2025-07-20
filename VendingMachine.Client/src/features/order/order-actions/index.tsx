@@ -4,7 +4,7 @@ import { Panel } from "@/shared/ui/panel";
 import { Payment } from "@mui/icons-material";
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { GoBackButton } from "../../../widgets/go-back-button";
+import { GoBackButton } from "../../../widgets/routing/go-back-button";
 import { orderListSlice } from "@/entities/order";
 import { useAppSelector } from "@/shared/model/redux";
 import clsx from "clsx";

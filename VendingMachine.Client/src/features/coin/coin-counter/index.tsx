@@ -1,9 +1,9 @@
 import { coinListSlice } from "@/entities/coin";
-import { Coin } from "@/entities/coin/model/coin";
+import { DepositCoin } from "@/entities/coin/types";
 import { useAppDispatch } from "@/shared/model/redux";
 import { Counter } from "@/shared/ui/counter";
 
-export const CoinCounter = ({ coin }: { coin: Coin }) => {
+export const CoinCounter = ({ coin }: { coin: DepositCoin }) => {
   const dispatch = useAppDispatch();
 
   const handleStockChange = (value: string) => {

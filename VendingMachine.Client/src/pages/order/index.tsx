@@ -1,8 +1,8 @@
 "use client";
 
-import { OrderList } from "@/entities/order/ui/order-list";
 import { OrderActions } from "@/features/order/order-actions";
 import { Header } from "@/widgets/header";
+import { OrderList } from "@/widgets/order/order-list";
 
 export const OrderPage = () => {
   return (

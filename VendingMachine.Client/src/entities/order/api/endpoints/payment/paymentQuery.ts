@@ -1,9 +1,9 @@
-import { Coin } from "@/entities/coin/types";
+import { DepositCoin } from "@/entities/coin/types";
 import { PaymentRequest } from "./paymentRequest";
 
 export type PaymentQueryParams = {
   orderId: string;
-  coins: Coin[];
+  coins: DepositCoin[];
 };
 
 export const paymentQuery = (request: PaymentRequest) => {

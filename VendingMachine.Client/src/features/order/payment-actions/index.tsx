@@ -3,8 +3,7 @@
 import { Panel } from "@/shared/ui/panel";
 import { Payment } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { useRouter } from "next/navigation";
-import { GoBackButton } from "../../widgets/go-back-button";
+import { GoBackButton } from "../../../widgets/routing/go-back-button";
 import { useAppDispatch, useAppSelector } from "@/shared/model/redux";
 import clsx from "clsx";
 import { orderListSlice } from "@/entities/order";
@@ -13,19 +12,22 @@ import {
   useCreateOrderWithItemsMutation,
   usePaymentMutation,
 } from "@/entities/order/api/orderApi";
-import { remainsListSlice } from "@/entities/coin/model/remains-list.slice";
+import { remainsListSlice } from "@/entities/coin/model/slices/remains-list.slice";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export const PaymentActions = () => {
-  const dispatch = useAppDispatch();
-
   const router = useRouter();
+
+  const dispatch = useAppDispatch();
 
   const addedCoins = useAppSelector(coinListSlice.selectors.addedCoins);
   const orderItems = useAppSelector(orderListSlice.selectors.orderItems);
-  const remainsCoins = useAppSelector(remainsListSlice.selectors.coins);
 
   const sumCoins = useAppSelector(coinListSlice.selectors.sumCoins);
   const sumOrder = useAppSelector(orderListSlice.selectors.sumOrder);
+
+  const [orderId, setOrderId] = useState("");
 
   const [createOrderWithItems] = useCreateOrderWithItemsMutation();
 
@@ -34,28 +36,34 @@ export const PaymentActions = () => {
   const isDepositEnough = sumOrder <= sumCoins;
 
   const handlePayment = async () => {
-    console.log("start", remainsCoins);
+    let currentOrderId = orderId;
 
-    const createOrderWithItemsResult = await createOrderWithItems(
-      orderItems
-    ).unwrap();
+    if (!currentOrderId) {
+      const createOrderWithItemsResult = await createOrderWithItems(
+        orderItems
+      ).unwrap();
 
-    if (createOrderWithItemsResult?.result?.orderId) {
+      if (createOrderWithItemsResult.result?.orderId) {
+        currentOrderId = createOrderWithItemsResult.result.orderId;
+        setOrderId(currentOrderId);
+      }
+    }
+
+    if (currentOrderId) {
       const paymentResult = await payment({
-        orderId: createOrderWithItemsResult?.result?.orderId,
+        orderId: currentOrderId,
         coins: addedCoins,
       }).unwrap();
 
       if (paymentResult.result) {
         dispatch(
-          remainsListSlice.actions.setPaymentResult(paymentResult.result)
+          remainsListSlice.actions.setRemains({
+            remains: paymentResult.result.remains,
+            coins: paymentResult.result.coins,
+          })
         );
-
-        console.log("end", remainsCoins);
-
         dispatch(coinListSlice.actions.resetCoins());
         dispatch(orderListSlice.actions.resetOrderList());
-
         router.push("/complete");
       }
     }

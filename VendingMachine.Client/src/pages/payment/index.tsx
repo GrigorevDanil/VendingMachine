@@ -1,7 +1,8 @@
 "use client";
 
-import { CoinList } from "@/entities/coin/ui/coin-list";
-import { PaymentActions } from "@/features/payment-actions";
+import { PaymentActions } from "@/features/order/payment-actions";
+import { CoinList } from "@/widgets/coin/coin-list";
+import { CoinOrderSummary } from "@/widgets/coin/coin-order-summary";
 import { Header } from "@/widgets/header";
 
 export const PaymentPage = () => {
@@ -10,7 +11,7 @@ export const PaymentPage = () => {
       <Header>
         <p> - Оплата заказа</p>
       </Header>
-      <CoinList />
+      <CoinList footer={<CoinOrderSummary />} />
       <PaymentActions />
     </div>
   );

@@ -3,7 +3,7 @@ import { orderListSlice } from "@/entities/order";
 import { useAppDispatch } from "@/shared/model/redux";
 import { Counter } from "@/shared/ui/counter";
 
-export const QuantityCounter = ({ orderItem }: { orderItem: OrderItem }) => {
+export const OrderCounter = ({ orderItem }: { orderItem: OrderItem }) => {
   const dispatch = useAppDispatch();
 
   const handleQuantityChange = (value: string) => {

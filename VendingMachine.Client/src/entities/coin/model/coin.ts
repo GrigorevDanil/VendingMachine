@@ -1,4 +1,4 @@
 export type Coin = {
   denomination: number;
-  quantity: number;
+  stock: number;
 };

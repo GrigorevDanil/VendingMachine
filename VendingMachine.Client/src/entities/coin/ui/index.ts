@@ -1,2 +1,2 @@
 export { CoinCard } from "./coin-card";
-export { CoinList } from "./coin-list";
+export { CountCoinCard } from "./count-coin-card";

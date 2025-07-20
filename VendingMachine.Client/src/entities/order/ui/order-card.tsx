@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { OrderItem } from "../model/order";
-import { QuantityCounter } from "@/features/order/quantity-counter";
 import { RemoveProductFromOrder } from "@/features/product/remove-product-from-order";
+import { OrderCounter } from "@/features/order/order-counter";
 
 export const OrderCard = ({ orderItem }: { orderItem: OrderItem }) => {
   return (
@@ -22,7 +22,7 @@ export const OrderCard = ({ orderItem }: { orderItem: OrderItem }) => {
       </div>
 
       <div className="col-span-3 ">
-        <QuantityCounter orderItem={orderItem} />
+        <OrderCounter orderItem={orderItem} />
       </div>
 
       <div className="col-span-2 text-center font-medium">

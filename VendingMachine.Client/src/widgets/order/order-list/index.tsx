@@ -1,9 +1,8 @@
 "use client";
 
+import { OrderCard, orderListSlice } from "@/entities/order";
 import { useAppSelector } from "@/shared/model/redux";
-import { orderListSlice } from "../model/order-list.slice";
 import { Panel } from "@/shared/ui/panel";
-import { OrderCard } from "./order-card";
 
 export const OrderList = () => {
   const orderItems = useAppSelector(orderListSlice.selectors.orderItems);

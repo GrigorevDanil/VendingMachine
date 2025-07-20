@@ -1,11 +1,11 @@
 import { Panel } from "@/shared/ui/panel";
-import { SelectBrand } from "../select-brand";
-import { PriceSlider } from "../price-slider";
+import { SelectBrand } from "../../../features/product/select-brand";
+import { PriceSlider } from "../../../features/product/price-slider";
 import { Button } from "@mui/material";
 import clsx from "clsx";
-import { SelectSortByProduct } from "../select-sort-by-product";
-import { SelectSortDirectionProduct } from "../select-sort-direction-product";
-import { InputSearchProduct } from "../input-search-product";
+import { SelectSortByProduct } from "../../../features/product/select-sort-by-product";
+import { SelectSortDirectionProduct } from "../../../features/product/select-sort-direction-product";
+import { InputSearchProduct } from "../../../features/product/input-search-product";
 import { useAppSelector } from "@/shared/model/redux";
 import { useRouter } from "next/navigation";
 import { orderListSlice } from "@/entities/order";

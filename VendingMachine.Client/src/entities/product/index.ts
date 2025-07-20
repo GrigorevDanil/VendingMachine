@@ -1,4 +1,4 @@
-export * from "./ui";
+export * from "./ui/product-card";
 export * from "./api";
 export { productListSlice } from "./model/product-list.slice";
 export type {

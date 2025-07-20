@@ -2,5 +2,5 @@ import z from "zod";
 
 export const CoinDtoSchema = z.object({
   denomination: z.number(),
-  quantity: z.number(),
+  stock: z.number(),
 });

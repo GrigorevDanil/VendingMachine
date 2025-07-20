@@ -1,1 +1,1 @@
-export * from "./model/coin";
+export * from "./model/deposit-coin";

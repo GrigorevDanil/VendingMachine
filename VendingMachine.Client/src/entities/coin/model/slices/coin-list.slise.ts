@@ -3,10 +3,10 @@ import {
   createSelector,
   createSlice,
 } from "@reduxjs/toolkit/react";
-import { Coin } from "./coin";
+import { DepositCoin } from "../deposit-coin";
 
 export type State = {
-  coins: Coin[];
+  coins: DepositCoin[];
 };
 
 const initialState: State = {
@@ -35,7 +35,6 @@ export const coinListSlice = createSlice({
   initialState,
   selectors: {
     coins: (state: State) => state.coins,
-    coinsCount: (state: State) => state.coins.length,
     addedCoins: createSelector(
       (state: State) => state.coins,
       (coins) => coins.filter((coin) => coin.quantity > 0)

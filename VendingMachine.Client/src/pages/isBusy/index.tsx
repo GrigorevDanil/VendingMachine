@@ -1,7 +1,8 @@
 "use client";
 
+import { Panel } from "@/shared/ui/panel";
+import { GoHomeButton } from "@/widgets/routing/go-home-button";
 import { Header } from "@/widgets/header";
-import { IsBusy } from "@/widgets/isBusy";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -19,7 +20,12 @@ export const IsBusyPage = () => {
   return (
     <div className="flex flex-col gap-2 h-full">
       <Header />
-      <IsBusy />
+      <Panel className="flex flex-col gap-4 items-center justify-center h-full">
+        <p className="text-4xl text-white m-auto">
+          Извините, в данный момент автомат занят
+        </p>
+        <GoHomeButton />
+      </Panel>
     </div>
   );
 };

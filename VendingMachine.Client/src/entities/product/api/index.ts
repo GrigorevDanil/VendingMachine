@@ -1,2 +1,5 @@
-export { useGetProductsWithPaginationQuery } from "./productApi";
+export {
+  useGetProductsWithPaginationQuery,
+  useImportProductFromExcelMutation,
+} from "./productApi";
 export * from "./dtos";

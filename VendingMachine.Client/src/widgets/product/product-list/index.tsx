@@ -1,12 +1,14 @@
 "use client";
 
 import { CircularProgress } from "@mui/material";
-import { useGetProductsWithPaginationQuery } from "../api/productApi";
-import { ProductCard } from "./product-card";
 import { Panel } from "@/shared/ui/panel";
 import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@/shared/model/redux";
-import { productListSlice } from "../model/product-list.slice";
+import {
+  productListSlice,
+  useGetProductsWithPaginationQuery,
+} from "@/entities/product";
+import { ProductCard } from "@/entities/product/ui/product-card";
 
 export const ProductList = () => {
   const dispatch = useAppDispatch();

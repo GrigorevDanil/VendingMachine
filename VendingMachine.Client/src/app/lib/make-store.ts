@@ -1,5 +1,5 @@
 import { coinListSlice } from "@/entities/coin";
-import { remainsListSlice } from "@/entities/coin/model/remains-list.slice";
+import { remainsListSlice } from "@/entities/coin/model/slices/remains-list.slice";
 import { orderListSlice } from "@/entities/order";
 import { productListSlice } from "@/entities/product";
 import { baseApi } from "@/shared/api";

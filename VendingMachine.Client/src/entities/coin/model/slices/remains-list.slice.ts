@@ -3,12 +3,11 @@ import {
   createSelector,
   createSlice,
 } from "@reduxjs/toolkit/react";
-import { Coin } from "./coin";
-import { PaymentResponse } from "@/entities/order/api/endpoints/payment/paymentResponse";
+import { DepositCoin } from "../deposit-coin";
 
 export type State = {
   remains: number;
-  coins: Coin[];
+  coins: DepositCoin[];
 };
 
 const initialState: State = {
@@ -33,6 +32,11 @@ const initialState: State = {
   ],
 };
 
+type SetRemainsAction = {
+  remains: number;
+  coins: DepositCoin[];
+};
+
 export const remainsListSlice = createSlice({
   name: "remains-list",
   initialState,
@@ -45,12 +49,12 @@ export const remainsListSlice = createSlice({
     ),
   },
   reducers: {
-    setPaymentResult: (state, action: PayloadAction<PaymentResponse>) => {
-      state.remains = action.payload.remains;
+    setRemains: (state, action: PayloadAction<SetRemainsAction>) => {
+      const { coins, remains } = action.payload;
+
+      state.remains = remains;
       state.coins = initialState.coins.map((coin) => {
-        const newCoin = action.payload.coins.find(
-          (c) => c.denomination === coin.denomination
-        );
+        const newCoin = coins.find((c) => c.denomination === coin.denomination);
         return newCoin
           ? { ...coin, quantity: newCoin.quantity }
           : { ...coin, quantity: 0 };

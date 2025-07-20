@@ -2,6 +2,7 @@ import z from "zod";
 import { EnvelopeSchema } from "../model/envelope";
 import { enqueueSnackbar } from "notistack";
 import { getRouter } from "@/app/lib";
+import { getMessageByCode } from "./getMessageByCode";
 
 export const ErrorResponseSchema = z.object({
   status: z.number(),
@@ -19,7 +20,9 @@ export const handleError = async (response: unknown) => {
 
     if (envelopResponse.errors) {
       envelopResponse.errors.forEach((error) => {
-        enqueueSnackbar(error.message, { variant: "error" });
+        const message = getMessageByCode(error.message, error.code);
+
+        enqueueSnackbar(message, { variant: "error" });
       });
     }
     return;
@@ -38,7 +41,9 @@ export const handleError = async (response: unknown) => {
       }
 
       errorData.data.errors.forEach((error) => {
-        enqueueSnackbar(error.message, { variant: "error" });
+        const message = getMessageByCode(error.message, error.code);
+
+        enqueueSnackbar(message, { variant: "error" });
       });
     }
     return;
