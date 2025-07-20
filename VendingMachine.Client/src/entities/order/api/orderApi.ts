@@ -7,8 +7,10 @@ import {
 } from "./endpoints/createOrderWithItems/createOrderWithItemsResponse";
 import { Envelope, EnvelopeSchema } from "@/shared/model/envelope";
 import { handleError } from "@/shared/lib/handleError";
-import { paymentQuery } from "./endpoints/payment/paymentQuery";
-import { PaymentRequest } from "./endpoints/payment/paymentRequest";
+import {
+  PaymentQueryParams,
+  paymentQuery,
+} from "./endpoints/payment/paymentQuery";
 import {
   PaymentResponse,
   PaymentResponseSchema,
@@ -28,12 +30,10 @@ const orderApi = baseApi.injectEndpoints({
       transformErrorResponse: (response) => handleError(response),
       invalidatesTags: ["Product"],
     }),
-    payment: create.mutation<Envelope<PaymentResponse>, PaymentRequest>({
+    payment: create.mutation<Envelope<PaymentResponse>, PaymentQueryParams>({
       query: (request) => paymentQuery(request),
-      transformResponse: (response: unknown): Envelope<PaymentResponse> => {
-        console.log(response);
-        return EnvelopeSchema(PaymentResponseSchema).parse(response);
-      },
+      transformResponse: (response: unknown): Envelope<PaymentResponse> =>
+        EnvelopeSchema(PaymentResponseSchema).parse(response),
       transformErrorResponse: (response) => handleError(response),
     }),
   }),

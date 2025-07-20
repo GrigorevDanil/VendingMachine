@@ -8,7 +8,6 @@ export const OrderCounter = ({ orderItem }: { orderItem: OrderItem }) => {
 
   const handleQuantityChange = (value: string) => {
     if (/^\d*$/.test(value)) {
-      console.log(value);
       dispatch(
         orderListSlice.actions.updateQuantity({
           productId: orderItem.product.id,

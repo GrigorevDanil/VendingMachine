@@ -11,6 +11,10 @@ import {
   getProductsWithPaginationQuery,
 } from "./endpoints/getProductsWithPagination/getProductsWithPaginationQuery";
 import { importProductsFromExcelQuery } from "./endpoints/importProductsFromExcel/importProductsFromExcelQuery";
+import {
+  UpdateProductStockQueryParams,
+  updateProductStockQuery,
+} from "./endpoints/updateProductStock/updateProductStockQuery";
 
 const productApi = baseApi.injectEndpoints({
   endpoints: (create) => ({
@@ -31,6 +35,11 @@ const productApi = baseApi.injectEndpoints({
       transformErrorResponse: (response) => handleError(response),
       invalidatesTags: ["Product"],
     }),
+    updateProductStock: create.mutation<void, UpdateProductStockQueryParams>({
+      query: (params) => updateProductStockQuery(params),
+      transformErrorResponse: (response) => handleError(response),
+      invalidatesTags: ["Product"],
+    }),
   }),
   overrideExisting: true,
 });
@@ -38,4 +47,5 @@ const productApi = baseApi.injectEndpoints({
 export const {
   useGetProductsWithPaginationQuery,
   useImportProductFromExcelMutation,
+  useUpdateProductStockMutation,
 } = productApi;

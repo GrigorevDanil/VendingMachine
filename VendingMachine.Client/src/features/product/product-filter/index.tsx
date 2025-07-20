@@ -10,7 +10,11 @@ import { useAppSelector } from "@/shared/model/redux";
 import { useRouter } from "next/navigation";
 import { orderListSlice } from "@/entities/order";
 
-export const ProductFilter = () => {
+export const ProductFilter = ({
+  goToOrder = true,
+}: {
+  goToOrder?: boolean;
+}) => {
   const router = useRouter();
 
   const orderItemsCount = useAppSelector(
@@ -24,17 +28,19 @@ export const ProductFilter = () => {
       <div className="flex gap-2 items-center justify-between flex-col sm:flex-row sm:gap-10">
         <SelectBrand className="flex-1" />
         <PriceSlider className="flex-1" />
-        <Button
-          className={clsx(
-            "text-white w-full sm:w-[200px]",
-            isDisabled ? "bg-gray-500" : "bg-green-500 hover:bg-green-600"
-          )}
-          size="large"
-          disabled={isDisabled}
-          onClick={() => router.push("/order")}
-        >
-          Выбранно ({orderItemsCount})
-        </Button>
+        {goToOrder && (
+          <Button
+            className={clsx(
+              "text-white w-full sm:w-[200px]",
+              isDisabled ? "bg-gray-500" : "bg-green-500 hover:bg-green-600"
+            )}
+            size="large"
+            disabled={isDisabled}
+            onClick={() => router.push("/order")}
+          >
+            Выбранно ({orderItemsCount})
+          </Button>
+        )}
       </div>
       <div className="flex gap-2 items-center justify-between flex-col sm:flex-row sm:gap-10">
         <SelectSortByProduct className="flex-1" />

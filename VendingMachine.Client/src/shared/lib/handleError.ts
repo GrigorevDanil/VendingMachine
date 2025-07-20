@@ -10,8 +10,6 @@ export const ErrorResponseSchema = z.object({
 });
 
 export const handleError = async (response: unknown) => {
-  console.log(response);
-
   const envelopeSchema = EnvelopeSchema(z.null());
   const envelopResponseResult = await envelopeSchema.safeParseAsync(response);
 
