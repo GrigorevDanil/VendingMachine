@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using VendingMachine.Application.Abstractions;
 using VendingMachine.Application.Dtos;
+using VendingMachine.Application.Dtos.Database;
 
 namespace VendingMachine.Infrastructure.DbContexts;
 

@@ -1,3 +1,5 @@
-﻿namespace VendingMachine.Application.Commands.Order.Payment;
+﻿using VendingMachine.Application.Dtos;
 
-public record PaymentResponse(decimal Remains, PaymentCoin[]  Coins);
+namespace VendingMachine.Application.Commands.Order.Payment;
+
+public record PaymentResponse(decimal Remains, DepositCoin[]  Coins);

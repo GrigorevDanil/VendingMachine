@@ -5,6 +5,8 @@ using VendingMachine.Application.Abstractions;
 using VendingMachine.Application.Abstractions.Messages;
 using VendingMachine.Application.Abstractions.Repositories;
 using VendingMachine.Application.Abstractions.Repositories.Base;
+using VendingMachine.Application.Abstractions.Services;
+using VendingMachine.Application.Dtos;
 using VendingMachine.Application.Extensions;
 using VendingMachine.Domain.Shared;
 using VendingMachine.Domain.ValueObjects;
@@ -20,15 +22,18 @@ public class PaymentHandler : ICommandHandler<PaymentResponse,PaymentCommand>
     
     private readonly ICoinRepository _coinRepository;
     
+    private readonly IChangeCalculator _changeCalculator;
+    
     private readonly IUnitOfWork _unitOfWork;
     
     private readonly ILogger<PaymentHandler> _logger;
 
-    public PaymentHandler(IValidator<PaymentCommand> validator, IRepository<Domain.Aggregates.Order, OrderId> orderRepository, ICoinRepository coinRepository, IUnitOfWork unitOfWork, ILogger<PaymentHandler> logger)
+    public PaymentHandler(IValidator<PaymentCommand> validator, IRepository<Domain.Aggregates.Order, OrderId> orderRepository, ICoinRepository coinRepository, IChangeCalculator changeCalculator, IUnitOfWork unitOfWork, ILogger<PaymentHandler> logger)
     {
         _validator = validator;
         _orderRepository = orderRepository;
         _coinRepository = coinRepository;
+        _changeCalculator = changeCalculator;
         _unitOfWork = unitOfWork;
         _logger = logger;
     }
@@ -53,14 +58,14 @@ public class PaymentHandler : ICommandHandler<PaymentResponse,PaymentCommand>
         if (order.TotalAmount.Value > sumAcceptCoins) 
             return Errors.Order.CoinsNotEnoughForPayment().ToErrorList();
 
-        foreach (var paymentCoin in command.Coins)
+        foreach (var depositCoin in command.Coins)
         {
-            var coinResult = await _coinRepository.GetByDenominationAsync(Denomination.Of(paymentCoin.Denomination).Value, cancellationToken);
+            var coinResult = await _coinRepository.GetByDenominationAsync(Denomination.Of(depositCoin.Denomination).Value, cancellationToken);
             if (coinResult.IsFailure) 
                 return coinResult.Error.ToErrorList();
             var coin = coinResult.Value;
 
-            var addedResult = coin.AddStock(paymentCoin.Quantity);
+            var addedResult = coin.AddStock(depositCoin.Quantity);
             if (addedResult.IsFailure) 
                 return addedResult.Error.ToErrorList();
             
@@ -68,7 +73,7 @@ public class PaymentHandler : ICommandHandler<PaymentResponse,PaymentCommand>
 
         
         var remains = sumAcceptCoins - order.TotalAmount.Value;
-        var remainsCoins = new List<PaymentCoin>();
+        var remainsCoins = new List<DepositCoin>();
         
         if (remains > 0)
         {
@@ -76,6 +81,9 @@ public class PaymentHandler : ICommandHandler<PaymentResponse,PaymentCommand>
             var sumAvailableCoins = availableCoins.Sum(x => x.Denomination.Value * x.Stock.Value);
             
             if (sumAvailableCoins < remains) 
+                return Errors.Order.NotEnoughAvailableCoins().ToErrorList();
+            
+            if (!_changeCalculator.CanMakeChange(remains, availableCoins))
                 return Errors.Order.NotEnoughAvailableCoins().ToErrorList();
             
             foreach (var coin in availableCoins)
@@ -94,7 +102,7 @@ public class PaymentHandler : ICommandHandler<PaymentResponse,PaymentCommand>
                     if (subtractResult.IsFailure)
                         return subtractResult.Error.ToErrorList();
                 
-                    remainsCoins.Add(new PaymentCoin(denomination, toReturn));
+                    remainsCoins.Add(new DepositCoin(denomination, toReturn));
                 }
             }
         }

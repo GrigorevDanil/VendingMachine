@@ -1,4 +1,4 @@
-﻿using VendingMachine.Application.Dtos;
+﻿using VendingMachine.Application.Dtos.Database;
 
 namespace VendingMachine.Application.Abstractions;
 

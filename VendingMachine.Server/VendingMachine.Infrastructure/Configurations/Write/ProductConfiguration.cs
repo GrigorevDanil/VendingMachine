@@ -13,7 +13,8 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
         builder.HasKey(x => x.Id);
         
         builder.Property(x => x.Id)
-            .HasConversion(id => id.Value, idGuid => ProductId.Of(idGuid));
+            .HasConversion(id => id.Value, idGuid => ProductId.Of(idGuid))
+            .HasDefaultValueSql("gen_random_uuid()");
         
         builder.ComplexProperty(x => x.ImageUrl, 
             p =>
@@ -38,7 +39,6 @@ public class ProductConfiguration : IEntityTypeConfiguration<Product>
             {
                 p.Property(x => x.Value)
                     .HasColumnName(nameof(Product.Price))
-                    .HasColumnType(Price.TYPE_NAME)
                     .IsRequired();
             });
         

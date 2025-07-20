@@ -71,7 +71,7 @@ public class ExcelProductImportService : IExcelProductImportService
         foreach (var row in dataRange.Rows())
         {
             var title = row.Cell(headers[TITLE_NAME]).GetString();
-            var price = row.Cell(headers[PRICE_NAME]).GetValue<decimal>();
+            var price = row.Cell(headers[PRICE_NAME]).GetValue<int>();
             var stockIsInt = int.TryParse(row.Cell(headers[STOCK_NAME]).GetString(), out var stock);
             var imagePath = row.Cell(headers[IMAGE_URL_NAME]).GetString();
             var brandIdIsGuid = Guid.TryParse(row.Cell(headers[BRAND_ID_NAME]).GetString(), out var brandId);

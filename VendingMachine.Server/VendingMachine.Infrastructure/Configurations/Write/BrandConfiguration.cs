@@ -13,7 +13,8 @@ public class BrandConfiguration : IEntityTypeConfiguration<Brand>
         builder.HasKey(x => x.Id);
         
         builder.Property(x => x.Id)
-            .HasConversion(id => id.Value, idGuid => BrandId.Of(idGuid));
+            .HasConversion(id => id.Value, idGuid => BrandId.Of(idGuid))
+            .HasDefaultValueSql("gen_random_uuid()");
         
         builder.ComplexProperty(x => x.Title, 
             p =>

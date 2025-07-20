@@ -1,15 +1,17 @@
 ﻿using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
 using VendingMachine.Application.Abstractions;
+using VendingMachine.Application.Abstractions.Repositories;
 using VendingMachine.Application.Abstractions.Repositories.Base;
 using VendingMachine.Domain.Aggregates;
 using VendingMachine.Domain.Shared;
+using VendingMachine.Domain.ValueObjects;
 using VendingMachine.Domain.ValueObjects.Ids;
 using VendingMachine.Infrastructure.DbContexts;
 
 namespace VendingMachine.Infrastructure.Repositories;
 
-public class OrderRepository : IRepository<Order, OrderId>
+public class OrderRepository : IOrderRepository
 {
     private readonly WriteDbContext _dbContext;
 
@@ -44,5 +46,12 @@ public class OrderRepository : IRepository<Order, OrderId>
             return Errors.General.NotFound(entityId.Value);
         
         return order;
+    }
+
+    public async Task<List<Order>> GetAllUnpaidAsync(CancellationToken cancellationToken = default)
+    {
+        var orders = await _dbContext.Orders.Where(x => x.Status == OrderStatus.AwaitPayment).ToListAsync(cancellationToken);
+        
+        return orders;
     }
 }

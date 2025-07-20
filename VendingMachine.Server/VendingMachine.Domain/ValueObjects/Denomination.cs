@@ -36,7 +36,6 @@ public class Denomination : ValueObject
         return new Denomination(denomination);
     }
 
-
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;

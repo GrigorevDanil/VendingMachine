@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using VendingMachine.Application.Abstractions;
 using VendingMachine.Application.Abstractions.Messages;
 using VendingMachine.Application.Dtos;
+using VendingMachine.Application.Dtos.Database;
 using VendingMachine.Application.Extensions;
 using VendingMachine.Application.Models;
 

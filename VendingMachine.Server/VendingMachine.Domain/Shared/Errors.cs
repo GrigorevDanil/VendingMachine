@@ -16,6 +16,11 @@ namespace VendingMachine.Domain.Shared
                 var forId = id == null ? "" : $" for Id '{id}'";
                 return Error.NotFound("RECORD_NOT_FOUND", $"Record not found{forId}");
             }
+            
+            public static Error NotFound(string param)
+            {
+                return Error.NotFound("RECORD_NOT_FOUND", $"Record not found{param}");
+            }
 
             public static Error ArrayIsEmpty(string? arrayName = null)
             {
@@ -23,6 +28,7 @@ namespace VendingMachine.Domain.Shared
                 return Error.Validation("ARRAY_IS_EMPTY", $"Array {withName}is empty");
             }
         }
+        
         
         public static class Order
         {

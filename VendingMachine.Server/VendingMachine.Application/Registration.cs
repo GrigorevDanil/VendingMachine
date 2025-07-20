@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using VendingMachine.Application.Abstractions.Messages;
+using VendingMachine.Application.Abstractions.Services;
+using VendingMachine.Application.Services;
 
 namespace VendingMachine.Application;
 
@@ -24,6 +26,17 @@ public static class Registration
         
         
         services.AddValidatorsFromAssembly(assembly);
+
+        services.AddServices();
+        
+        return services;
+    }
+    
+    private static IServiceCollection AddServices(this IServiceCollection services)
+    {
+        services.AddScoped<IImageService, ImageService>();
+        services.AddScoped<IExcelProductImportService, ExcelProductImportService>();
+        services.AddScoped<IChangeCalculator, ChangeCalculator>();
         
         return services;
     }

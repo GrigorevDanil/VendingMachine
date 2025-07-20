@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using VendingMachine.Application.Dtos;
+using VendingMachine.Application.Dtos.Database;
 
 namespace VendingMachine.Infrastructure.Configurations.Read;
 

@@ -5,15 +5,13 @@ namespace VendingMachine.Domain.ValueObjects;
 
 public class Price : ValueObject
 {
-    public const string TYPE_NAME = "decimal(18,2)";
-    
-    private Price(decimal value)
+    private Price(int value)
     {
         Value = value;
     }
-    public decimal Value { get;}
+    public int Value { get;}
 
-    public static Result<Price, Error> Of(decimal value)
+    public static Result<Price, Error> Of(int value)
     {
         if (value <= 0) 
             return Errors.General.ValueIsInvalid(nameof(Price));

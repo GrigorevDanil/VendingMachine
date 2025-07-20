@@ -13,7 +13,8 @@ public class OrderConfiguration: IEntityTypeConfiguration<Order>
         builder.HasKey(x => x.Id);
         
         builder.Property(x => x.Id)
-            .HasConversion(id => id.Value, idGuid => OrderId.Of(idGuid));
+            .HasConversion(id => id.Value, idGuid => OrderId.Of(idGuid))
+            .HasDefaultValueSql("gen_random_uuid()");
         
         builder.ComplexProperty(x => x.Status, 
             p =>
@@ -37,7 +38,6 @@ public class OrderConfiguration: IEntityTypeConfiguration<Order>
             {
                 p.Property(x => x.Value)
                     .HasColumnName(nameof(Order.TotalAmount))
-                    .HasColumnType(TotalAmount.TYPE_NAME)
                     .IsRequired();
             });
         

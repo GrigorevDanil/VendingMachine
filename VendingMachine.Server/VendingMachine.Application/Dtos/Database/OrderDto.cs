@@ -1,6 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 
-namespace VendingMachine.Application.Dtos;
+namespace VendingMachine.Application.Dtos.Database;
 
 public class OrderDto: Entity<Guid>
 {
@@ -8,7 +8,7 @@ public class OrderDto: Entity<Guid>
     
     public DateTime CreatedAt { get; init; }
     
-    public decimal TotalAmount {get; init;}
+    public int TotalAmount {get; init;}
     
     public OrderItemDto[] Items { get; init; } = [];
 }

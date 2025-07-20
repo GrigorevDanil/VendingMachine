@@ -13,7 +13,8 @@ public class CoinConfiguration : IEntityTypeConfiguration<Coin>
         builder.HasKey(x => x.Id);
         
         builder.Property(x => x.Id)
-            .HasConversion(id => id.Value, idGuid => CoinId.Of(idGuid));
+            .HasConversion(id => id.Value, idGuid => CoinId.Of(idGuid))
+            .HasDefaultValueSql("gen_random_uuid()");
 
         builder.ComplexProperty(x => x.Denomination, 
             p =>

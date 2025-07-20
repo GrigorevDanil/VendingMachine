@@ -1,6 +1,5 @@
 ﻿using CSharpFunctionalExtensions;
 using Microsoft.EntityFrameworkCore;
-using VendingMachine.Application.Abstractions;
 using VendingMachine.Application.Abstractions.Repositories;
 using VendingMachine.Domain.Entities;
 using VendingMachine.Domain.Shared;

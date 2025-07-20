@@ -5,15 +5,13 @@ namespace VendingMachine.Domain.ValueObjects;
 
 public class TotalAmount : ValueObject
 {
-    public const string TYPE_NAME = "decimal(18,2)";
-    
-    private TotalAmount(decimal value)
+    private TotalAmount(int value)
     {
         Value = value;
     }
-    public decimal Value { get; private set; }
+    public int Value { get; private set; }
 
-    public static Result<TotalAmount, Error> Of(decimal value)
+    public static Result<TotalAmount, Error> Of(int value)
     {
         if (value < 0) 
             return Errors.General.ValueIsInvalid(nameof(TotalAmount));
@@ -21,7 +19,7 @@ public class TotalAmount : ValueObject
         return new TotalAmount(value);
     }
 
-    public Result<TotalAmount, Error> Add(decimal addedValue)
+    public Result<TotalAmount, Error> Add(int addedValue)
     {
         if (addedValue <= 0) 
             return Errors.General.ValueIsInvalid(nameof(TotalAmount));
@@ -29,7 +27,7 @@ public class TotalAmount : ValueObject
         return new TotalAmount(Value + addedValue);
     }
     
-    public Result<TotalAmount, Error> Subtract(decimal subtractedValue)
+    public Result<TotalAmount, Error> Subtract(int subtractedValue)
     {
         if (subtractedValue <= 0) 
             return Errors.General.ValueIsInvalid(nameof(TotalAmount));

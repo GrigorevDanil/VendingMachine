@@ -1,6 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 
-namespace VendingMachine.Application.Dtos;
+namespace VendingMachine.Application.Dtos.Database;
 
 public class ProductDto : Entity<Guid>
 {
@@ -10,7 +10,7 @@ public class ProductDto : Entity<Guid>
     
     public string Title { get; init; } = string.Empty;
     
-    public decimal Price { get; init; }
+    public int Price { get; init; }
     
     public int Stock { get; init; }
 }

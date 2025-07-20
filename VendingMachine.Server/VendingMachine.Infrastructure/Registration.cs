@@ -17,8 +17,7 @@ public static class Registration
         services
             .AddDatabase()
             .AddDbContext()
-            .AddRepositories()
-            .AddServices();
+            .AddRepositories();
         
         return services;
     }
@@ -49,15 +48,9 @@ public static class Registration
             .WithScopedLifetime());
 
         services.AddScoped<ICoinRepository, CoinRepository>();
+        services.AddScoped<IOrderRepository, OrderRepository>();
         
         return services;
     }
-
-    private static IServiceCollection AddServices(this IServiceCollection services)
-    {
-        services.AddScoped<IImageService, ImageService>();
-        services.AddScoped<IExcelProductImportService, ExcelProductImportService>();
-        
-        return services;
-    }
+   
 }

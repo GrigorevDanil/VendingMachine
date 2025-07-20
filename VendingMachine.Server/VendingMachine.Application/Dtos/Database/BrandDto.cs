@@ -1,7 +1,7 @@
 ﻿
 using CSharpFunctionalExtensions;
 
-namespace VendingMachine.Application.Dtos;
+namespace VendingMachine.Application.Dtos.Database;
 
 public class BrandDto : Entity<Guid>
 {

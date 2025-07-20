@@ -13,7 +13,8 @@ public class OrderItemConfiguration : IEntityTypeConfiguration<OrderItem>
         builder.HasKey(x => x.Id);
         
         builder.Property(x => x.Id)
-            .HasConversion(id => id.Value, idGuid => OrderItemId.Of(idGuid));
+            .HasConversion(id => id.Value, idGuid => OrderItemId.Of(idGuid))
+            .HasDefaultValueSql("gen_random_uuid()");
         
         builder.ComplexProperty(x => x.BrandTitle, 
             p =>

@@ -1,19 +1,15 @@
 ﻿using FluentValidation;
 using VendingMachine.Application.Validation;
 using VendingMachine.Application.Validators;
-using VendingMachine.Domain.ValueObjects;
 
-namespace VendingMachine.Application.Commands.Order.Payment;
+namespace VendingMachine.Application.Commands.Coin.ReplenishBalance;
 
-public class PaymentValidator : AbstractValidator<PaymentCommand>
+public class ReplenishBalanceValidator : AbstractValidator<ReplenishBalanceCommand>
 {
-    public PaymentValidator()
+    public ReplenishBalanceValidator()
     {
-        RuleFor(x => x.OrderId).MustBeValidGuid();
         RuleFor(x => x.Coins)
             .MustNotBeEmptyArray()
             .ForEach(itemRule => itemRule.SetValidator(new PaymentCoinValidator()));
-
     }
 }
-

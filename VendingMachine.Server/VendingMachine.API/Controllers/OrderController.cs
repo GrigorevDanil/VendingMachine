@@ -3,6 +3,7 @@ using VendingMachine.API.Contracts.Order;
 using VendingMachine.API.Controllers.Base;
 using VendingMachine.API.Extensions;
 using VendingMachine.Application.Commands.Order.AddOrderItem;
+using VendingMachine.Application.Commands.Order.ClearUnpaidOrders;
 using VendingMachine.Application.Commands.Order.CreateOrder;
 using VendingMachine.Application.Commands.Order.CreateOrderWithItems;
 using VendingMachine.Application.Commands.Order.DeleteOrder;
@@ -97,6 +98,25 @@ public class OrderController : ApplicationController
             return result.Error.ToResponse();
 
         return Ok(result.Value);
+    }
+    
+    /// <summary>
+    /// Удалить все неоплаченные заказы (После удаления количество товара возвращается)
+    /// </summary>
+    /// <response code="200"></response>
+    [HttpDelete("unpaid")]
+    public async Task<ActionResult> ClearUnpaidOrders(
+        [FromServices] ClearUnpaidOrdersHandler handler,
+        CancellationToken cancellationToken)
+    {
+        var command = new  ClearUnpaidOrdersCommand();
+        
+        var result = await handler.Handle(command, cancellationToken);
+        
+        if (result.IsFailure)
+            return result.Error.ToResponse();
+
+        return Ok();
     }
     
     /// <summary>
