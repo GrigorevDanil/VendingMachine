@@ -1,6 +1,6 @@
-﻿using VendingMachine.Application.Commands.Image.AddImage;
+﻿using Microsoft.AspNetCore.Http;
 
-namespace VendingMachine.API.Contracts.Image;
+namespace VendingMachine.Contracts.Requests.Image;
 
 /// <summary>
 /// Запрос для отправки изображения
@@ -8,5 +8,4 @@ namespace VendingMachine.API.Contracts.Image;
 /// <param name="Image">Картинка</param>
 public record AddImageRequest(IFormFile Image)
 {
-    public AddImageCommand ToCommand() => new (Image);
 }

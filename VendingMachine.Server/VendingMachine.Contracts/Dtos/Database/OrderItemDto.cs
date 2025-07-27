@@ -1,6 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 
-namespace VendingMachine.Application.Dtos.Database;
+namespace VendingMachine.Contracts.Dtos.Database;
 
 public class OrderItemDto : Entity<Guid>
 {

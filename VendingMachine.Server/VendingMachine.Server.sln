@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.API", "Vendi
 		{7AF6AFD3-83AA-42D5-92A5-5D5128F9E402} = {7AF6AFD3-83AA-42D5-92A5-5D5128F9E402}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VendingMachine.Contracts", "VendingMachine.Contracts\VendingMachine.Contracts.csproj", "{13C161D5-F949-40DA-A04B-95E9D24E20AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,5 +48,9 @@ Global
 		{DE5863E0-32AB-4CFC-AB88-B2098B238A8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE5863E0-32AB-4CFC-AB88-B2098B238A8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE5863E0-32AB-4CFC-AB88-B2098B238A8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13C161D5-F949-40DA-A04B-95E9D24E20AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13C161D5-F949-40DA-A04B-95E9D24E20AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13C161D5-F949-40DA-A04B-95E9D24E20AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13C161D5-F949-40DA-A04B-95E9D24E20AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

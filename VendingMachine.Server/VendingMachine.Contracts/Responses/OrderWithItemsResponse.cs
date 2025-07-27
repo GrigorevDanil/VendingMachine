@@ -1,3 +1,3 @@
-﻿namespace VendingMachine.Application.Responses;
+﻿namespace VendingMachine.Contracts.Responses;
 
 public record OrderWithItemsResponse(Guid OrderId, Guid[] OrderItemIds);

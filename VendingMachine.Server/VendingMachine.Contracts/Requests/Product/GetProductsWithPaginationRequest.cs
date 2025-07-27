@@ -1,6 +1,5 @@
-﻿using VendingMachine.Application.Queries.Product.GetProductsWithPagination;
-
-namespace VendingMachine.API.Contracts.Product;
+﻿
+namespace VendingMachine.Contracts.Requests.Product;
 
 /// <summary>
 /// Запрос для получения списка товаров (напитков) с пагинацией и фильтрами
@@ -19,8 +18,4 @@ public record GetProductsWithPaginationRequest(
     string? SortBy,
     string? SortDirection,
     int Page,
-    int PageSize)
-{
-    public GetProductWithPaginationQuery ToQuery() =>
-        new(BrandId, Title,MinPrice, SortBy, SortDirection, Page, PageSize);
-}
+    int PageSize);

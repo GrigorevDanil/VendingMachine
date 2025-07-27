@@ -1,5 +1,4 @@
-﻿using VendingMachine.Application.Dtos;
-using VendingMachine.Application.Dtos.Database;
+﻿using VendingMachine.Contracts.Dtos.Database;
 
 namespace VendingMachine.Application.Queries.Coin.GetBalance;
 

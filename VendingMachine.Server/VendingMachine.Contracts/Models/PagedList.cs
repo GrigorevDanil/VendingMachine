@@ -1,4 +1,4 @@
-    namespace VendingMachine.Application.Models;
+    namespace VendingMachine.Contracts.Models;
 
     public class PagedList<T>
     {

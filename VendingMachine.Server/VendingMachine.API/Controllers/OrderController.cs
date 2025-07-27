@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VendingMachine.API.Contracts.Order;
 using VendingMachine.API.Controllers.Base;
 using VendingMachine.API.Extensions;
 using VendingMachine.Application.Commands.Order.AddOrderItem;
@@ -10,6 +9,8 @@ using VendingMachine.Application.Commands.Order.DeleteOrder;
 using VendingMachine.Application.Commands.Order.DeleteOrderItem;
 using VendingMachine.Application.Commands.Order.Payment;
 using VendingMachine.Application.Commands.Order.UpdateOrderItem;
+using VendingMachine.Contracts.Dtos;
+using VendingMachine.Contracts.Requests.Order;
 
 namespace VendingMachine.API.Controllers;
 
@@ -47,7 +48,11 @@ public class OrderController : ApplicationController
         [FromServices] CreateOrderWithItemsHandler handler,
         CancellationToken cancellationToken)
     {
-        var command = request.ToCommand();
+        var command = new CreateOrderWithItemsCommand(
+            request.OrderItems.Select(x => 
+                    new CreateOrderWithItemsOrderItem(x.ProductId, x.Quantity))
+                .ToArray()
+            );
         
         var result = await handler.Handle(command, cancellationToken);
         
@@ -69,7 +74,12 @@ public class OrderController : ApplicationController
         [FromServices] PaymentHandler handler,
         CancellationToken cancellationToken)
     {
-        var command = request.ToCommand(id);
+        var command = new PaymentCommand(
+            id,
+            request.Coins.Select(x => 
+                    new DepositCoin(x.Denomination, x.Quantity))
+                .ToArray()
+        );
         
         var result = await handler.Handle(command, cancellationToken);
         
@@ -131,7 +141,11 @@ public class OrderController : ApplicationController
         [FromServices] AddOrderItemHandler handler,
         CancellationToken cancellationToken)
     {
-        var command = request.ToCommand(id);
+        var command = new AddOrderItemCommand(
+            id,
+            request.ProductId,
+            request.Quantity
+            );
         
         var result = await handler.Handle(command, cancellationToken);
         
@@ -178,7 +192,11 @@ public class OrderController : ApplicationController
         [FromServices] UpdateOrderItemHandler handler,
         CancellationToken cancellationToken)
     {
-        var command = request.ToCommand(id,orderItemId);
+        var command = new UpdateOrderItemCommand(
+            id,
+            orderItemId,
+            request.Quantity
+            );
         
         var result = await handler.Handle(command, cancellationToken);
         

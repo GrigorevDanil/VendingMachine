@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VendingMachine.API.Contracts.Coin;
 using VendingMachine.API.Controllers.Base;
 using VendingMachine.API.Extensions;
 using VendingMachine.Application.Commands.Coin.ReplenishBalance;
 using VendingMachine.Application.Queries.Coin.GetBalance;
+using VendingMachine.Contracts.Requests.Coin;
 
 namespace VendingMachine.API.Controllers;
 
@@ -36,7 +36,9 @@ public class CoinController : ApplicationController
         [FromServices] ReplenishBalanceHandler handler,
         CancellationToken cancellationToken)
     {
-        var command = request.ToCommand();
+        var command = new ReplenishBalanceCommand(
+            request.Coins
+            );
         
         var result = await handler.Handle(command, cancellationToken);
         

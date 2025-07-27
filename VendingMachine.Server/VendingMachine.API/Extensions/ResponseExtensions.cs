@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VendingMachine.Application.Models;
+using VendingMachine.Contracts.Models;
 using VendingMachine.Domain.Shared;
 
 namespace VendingMachine.API.Extensions;

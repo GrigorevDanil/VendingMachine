@@ -1,6 +1,4 @@
-﻿using VendingMachine.Application.Commands.Image.RemoveImageByName;
-
-namespace VendingMachine.API.Contracts.Image;
+﻿namespace VendingMachine.Contracts.Requests.Image;
 
 /// <summary>
 /// Запрос на удаление фотографии из сервера
@@ -8,5 +6,4 @@ namespace VendingMachine.API.Contracts.Image;
 /// <param name="FileName">Название файла (включая расширение)</param>
 public record RemoveImageByNameRequest(string FileName)
 {
-    public RemoveImageByNameCommand ToCommand() => new(FileName);
 }

@@ -1,4 +1,4 @@
-﻿namespace VendingMachine.API.Contracts;
+﻿namespace VendingMachine.Contracts.Requests;
 
 /// <summary>
 /// Вносимая монета

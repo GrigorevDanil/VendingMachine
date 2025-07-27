@@ -18,11 +18,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\VendingMachine.Contracts\VendingMachine.Contracts.csproj" />
       <ProjectReference Include="..\VendingMachine.Domain\VendingMachine.Domain.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Queries\Product\" />
     </ItemGroup>
 
 </Project>

@@ -1,6 +1,6 @@
 using VendingMachine.Domain.Shared;
 
-namespace VendingMachine.Application.Models;
+namespace VendingMachine.Contracts.Models;
 
 public record Envelope
 {

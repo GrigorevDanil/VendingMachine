@@ -1,7 +1,4 @@
-﻿using CSharpFunctionalExtensions;
-using VendingMachine.Application.Dtos;
-using VendingMachine.Domain.Entities;
-using VendingMachine.Domain.Shared;
+﻿using VendingMachine.Domain.Entities;
 
 namespace VendingMachine.Application.Abstractions.Services;
 
