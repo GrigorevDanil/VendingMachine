@@ -1,9 +1,9 @@
-﻿using CSharpFunctionalExtensions;
+﻿namespace VendingMachine.Contracts.Dtos.Database;
 
-namespace VendingMachine.Contracts.Dtos.Database;
-
-public class OrderItemDto : Entity<Guid>
+public class OrderItemDto
 {
+    public Guid Id { get; init; }
+    
     public Guid OrderId { get; init; }
     
     public Guid ProductId { get; init; }

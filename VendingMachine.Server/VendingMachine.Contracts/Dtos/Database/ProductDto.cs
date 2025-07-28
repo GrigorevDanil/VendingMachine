@@ -1,9 +1,9 @@
-﻿using CSharpFunctionalExtensions;
+﻿namespace VendingMachine.Contracts.Dtos.Database;
 
-namespace VendingMachine.Contracts.Dtos.Database;
-
-public class ProductDto : Entity<Guid>
+public class ProductDto
 {
+    public Guid Id { get; init; }
+    
     public Guid BrandId { get; init; }
     
     public string ImageUrl { get; init; } = string.Empty;

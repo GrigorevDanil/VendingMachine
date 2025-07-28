@@ -1,7 +1,7 @@
 ﻿using VendingMachine.Application.Abstractions;
 using VendingMachine.Infrastructure.DbContexts;
 
-namespace VendingMachine.Infrastructure;
+namespace VendingMachine.Infrastructure.Services;
 
 public class UnitOfWork : IUnitOfWork
 {
