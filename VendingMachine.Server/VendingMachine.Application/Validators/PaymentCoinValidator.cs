@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
-using VendingMachine.Application.Commands.Order.Payment;
-using VendingMachine.Application.Dtos;
 using VendingMachine.Application.Validation;
+using VendingMachine.Contracts.Dtos;
 using VendingMachine.Domain.ValueObjects;
 
 namespace VendingMachine.Application.Validators;

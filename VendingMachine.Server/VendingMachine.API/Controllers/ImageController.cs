@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VendingMachine.API.Contracts.Image;
 using VendingMachine.API.Controllers.Base;
 using VendingMachine.API.Extensions;
 using VendingMachine.Application.Commands.Image.AddImage;
 using VendingMachine.Application.Commands.Image.RemoveImageByName;
+using VendingMachine.Contracts.Requests.Image;
 
 namespace VendingMachine.API.Controllers;
 
@@ -21,7 +21,9 @@ public class ImageController : ApplicationController
         [FromServices] AddImageHandler handler,
         CancellationToken cancellationToken)
     {
-        var command = request.ToCommand();
+        var command = new AddImageCommand(
+            request.Image
+            );
         
         var result = await handler.Handle(command,cancellationToken);
         
@@ -40,7 +42,9 @@ public class ImageController : ApplicationController
         [FromServices] RemoveImageByNameHandler handler,
         CancellationToken cancellationToken)
     {
-        var command = request.ToCommand();
+        var command = new RemoveImageByNameCommand(
+            request.FileName
+        );
         
         var result = await handler.Handle(command,cancellationToken);
         

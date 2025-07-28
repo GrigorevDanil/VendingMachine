@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using VendingMachine.API.Contracts.Product;
 using VendingMachine.API.Controllers.Base;
 using VendingMachine.API.Extensions;
 using VendingMachine.Application.Commands.Product.ImportProductsFromExcel;
 using VendingMachine.Application.Commands.Product.UpdateProductStock;
 using VendingMachine.Application.Queries.Product.GetProductsWithPagination;
+using VendingMachine.Contracts.Requests.Product;
 
 namespace VendingMachine.API.Controllers;
 
@@ -23,7 +23,15 @@ public class ProductController : ApplicationController
         [FromServices] GetProductsWithPaginationHandler handler,
         CancellationToken cancellationToken)
     {
-        var query = request.ToQuery();
+        var query = new GetProductWithPaginationQuery(
+            request.BrandId,
+            request.Title,
+            request.MinPrice,
+            request.SortBy,
+            request.SortDirection,
+            request.Page,
+            request.PageSize
+            );
         
         var response = await handler.Handle(query, cancellationToken);
      
@@ -39,7 +47,8 @@ public class ProductController : ApplicationController
         [FromServices] ImportProductsFromExcelHandler handler,
         CancellationToken cancellationToken)
     {
-        var command = request.ToCommand();
+        var command = new ImportProductsFromExcelCommand(
+            request.File);
         
         var result = await handler.Handle(command,cancellationToken);
         
@@ -60,7 +69,10 @@ public class ProductController : ApplicationController
         [FromServices] UpdateProductStockHandler handler,
         CancellationToken cancellationToken)
     {
-        var command = request.ToCommand(id);
+        var command = new UpdateProductStockCommand(
+            id, 
+            request.Stock
+        );
         
         var result = await handler.Handle(command, cancellationToken);
         

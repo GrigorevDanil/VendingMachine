@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
-using VendingMachine.Application.Models;
+using VendingMachine.Contracts.Models;
 
 namespace VendingMachine.Application.Extensions;
 

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.FileProviders;
 using VendingMachine.API.Middlewares;
 using VendingMachine.Application;
-using VendingMachine.Application.Models;
+using VendingMachine.Contracts.Models;
 using VendingMachine.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
